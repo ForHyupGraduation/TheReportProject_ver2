@@ -2,6 +2,8 @@ from merging import InterestDataClass
 
 from merging import InitInterest
 
+from merging import INTEREST_PATH_IN_DB
+
 import os
 import csv
 
@@ -57,8 +59,7 @@ def GetInterestsWithoutNoneValues(interests):
 def DownloadInterests(companyCode):
     interests = GetInterestsWithoutNoneValues(GetInterests(companyCode))
     companyCode = interests[0].companyCode
-    InitInterest(companyCode)
-    with open(f"./data/interest/interest{companyCode}.csv", 'w', newline='', encoding='UTF-8') as csvfile:
+    with open(f"{INTEREST_PATH_IN_DB}/interest{companyCode}.csv", 'w', newline='', encoding='UTF-8') as csvfile:
         writer = csv.writer(csvfile)
         for interest in interests:
             writer.writerow([
@@ -68,4 +69,8 @@ def DownloadInterests(companyCode):
                 interest.posts,
                 interest.volume
             ])
+
+    os.remove(f"./data/post/post{companyCode}.csv")
+    os.remove(f"./data/volume/volume{companyCode}.csv")
+
     print(f"[+] Success To Download interest{companyCode}.csv In ./data/interest")
