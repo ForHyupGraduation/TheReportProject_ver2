@@ -12,17 +12,17 @@ import Test from "./pages/Test";
 import Investor from "./pages/Investor";
 import { useState } from "react";
 const App = () => {
-  const [color, setColor] = useState();
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setColor((color) => (color === "red" ? "#33ff33" : "red"));
-    }, 50);
-    return () => clearInterval(intervalId);
-  });
+  // const [color, setColor] = useState();
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     setColor((color) => (color === "red" ? "#33ff33" : "red"));
+  //   }, 50);
+  //   return () => clearInterval(intervalId);
+  // });
 
   return (
     // color : "whiteSmoke"
-    <div className="App" style={{ backgroundColor: color }}>
+    <div className="App" style={{ backgroundColor: "whitesmoke" }}>
       <Routes>
         <Route element={<Header />}>
           <Route path="/" element={<Home />} />
