@@ -6,6 +6,8 @@ from crawling import InitPost
 
 from crawling import postDataClass
 
+
+
 import time
 import random
 import csv

@@ -4,6 +4,9 @@ from webdriver_manager.chrome import ChromeDriverManager
 import os
 import random
 
+YEARLY_SALES_DB_PATH_IN_DB = "../DB/yearly/sales"
+YEARLY_OPERATING_PROFITS_DB_PATH_IN_DB = "../DB/yearly/operatingProfits"
+
 userAgents = [
 "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36 RuxitSynthetic/1.0 v4508262480646156115 t2724773385614408303 athe94ac249 altpriv cvcv=2 cexpw=1 smf=0",
 "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36 RuxitSynthetic/1.0 v350698073514718533 t3155812531728514435 ath5ee645e0 altpriv cvcv=2 cexpw=1 smf=0",

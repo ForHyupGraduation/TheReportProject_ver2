@@ -9,6 +9,9 @@ from crawling import InitYearly
 
 from crawling import companyGrowthRatesDataClass
 
+from crawling import YEARLY_SALES_DB_PATH_IN_DB
+from crawling import YEARLY_OPERATING_PROFITS_DB_PATH_IN_DB
+
 import time
 import random
 import csv
@@ -128,8 +131,14 @@ def DownloadGrowthDataSet(upjongNumber):
     driver = CreateChromeDriver()
     companyCodes = GetCompanyCodes(driver=driver, oneTime=False, upjongNumber=upjongNumber)
 
-    InitGrowthRates(upjongNumber=upjongNumber)
-    InitYearly(upjongNumber)
+    with open(f"./data/growthRates/growthRates{upjongNumber}.csv", 'w', newline='', encoding='UTF-8') as csvfile:
+        pass
+
+    for companyCode in companyCodes:
+        with open(f"{YEARLY_SALES_DB_PATH_IN_DB}/sales{upjongNumber}.csv", 'w', newline='', encoding='UTF-8') as csvfile:
+            pass
+        with open(f"{YEARLY_OPERATING_PROFITS_DB_PATH_IN_DB}/operatingProfits{upjongNumber}.csv", 'w', newline='', encoding='UTF-8') as csvfile:
+            pass
 
     for companyCode in companyCodes:
         companyGrowthRates = GetCompanyGrowthRates(driver=driver, companyCode=companyCode, oneTime=False)
@@ -148,7 +157,7 @@ def DownloadGrowthDataSet(upjongNumber):
             ])
             pass
 
-        with open(f"./data/yearly/sales/sales{upjongNumber}.csv", 'a', newline='', encoding='UTF-8') as csvfile:
+        with open(f"{YEARLY_SALES_DB_PATH_IN_DB}/sales{upjongNumber}.csv", 'a', newline='', encoding='UTF-8') as csvfile:
             writer = csv.writer(csvfile)
             
             companyName = companyGrowthRatesData.companyName
@@ -157,7 +166,8 @@ def DownloadGrowthDataSet(upjongNumber):
 
             writer.writerow(yearlySales)
 
-        with open(f"./data/yearly/operatingProfits/operatingProfits{upjongNumber}.csv", 'a', newline='', encoding='UTF-8') as csvfile:
+
+        with open(f"{YEARLY_OPERATING_PROFITS_DB_PATH_IN_DB}/operatingProfits{upjongNumber}.csv", 'a', newline='', encoding='UTF-8') as csvfile:
             writer = csv.writer(csvfile)
             
             companyName = companyGrowthRatesData.companyName

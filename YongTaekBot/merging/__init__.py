@@ -1,5 +1,8 @@
 import os
 
+INTEREST_PATH_IN_DB = "../DB/interests"
+NORMALIZED_INTEREST_PATH_IN_DB = "../DB/normalizedInterests"
+
 class InterestDataClass:
     def __init__(self, companyName, companyCode, companyDate, posts, volume) -> None:
         self.companyName = companyName

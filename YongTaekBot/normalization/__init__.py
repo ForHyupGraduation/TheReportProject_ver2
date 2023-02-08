@@ -1,5 +1,10 @@
 import os
 
+
+INTEREST_DB_PATH_IN_DB = "../DB/interests"
+NORMALIZED_INTEREST_DB_PATH_IN_DB = "../DB/normalizedInterests"
+NORMALIZED_GROWTH_RATES_DB_PATH_IN_DB = "../DB/normalizedGrowthRates"
+
 def GetNormalizationValue(val, minVal, maxVal):
     if maxVal - minVal == 0 or val - minVal == 0:
         return 1

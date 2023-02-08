@@ -1,8 +1,7 @@
 from crawling import companyGrowthRatesDataClass
 
 from normalization import GetNormalizationValue
-from normalization import InitNormalizedGrowthRates
-
+from normalization import NORMALIZED_GROWTH_RATES_DB_PATH_IN_DB
 
 import csv
 import os
@@ -49,6 +48,9 @@ def DownloadNormalizedGrowthRates(upjongNumber):
     minAverageOperatingProfitsGrowthRate = growthRates["minAverageOperatingProfitsGrowthRate"]
     maxAverageOperatingProfitsGrowthRate = growthRates["maxAverageOperatingProfitsGrowthRate"]
 
+    with open(f"{NORMALIZED_GROWTH_RATES_DB_PATH_IN_DB}/growthRates{upjongNumber}.csv", 'w', newline='', encoding='UTF-8') as csvfile:
+        pass
+
     for growthRateData in growthRates["growthRatesDataSet"]:
         normalizedAverageSalesGrowthRates = GetNormalizationValue(
             growthRateData.averageSalesGrowthRate,
@@ -62,7 +64,7 @@ def DownloadNormalizedGrowthRates(upjongNumber):
             maxAverageOperatingProfitsGrowthRate
         )
 
-        with open(f"./data/growthRates/normalized/growthRates{upjongNumber}.csv", 'a', newline='', encoding='UTF-8') as csvfile:
+        with open(f"{NORMALIZED_GROWTH_RATES_DB_PATH_IN_DB}/growthRates{upjongNumber}.csv", 'a', newline='', encoding='UTF-8') as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow([
                 growthRateData.companyName,
@@ -70,3 +72,5 @@ def DownloadNormalizedGrowthRates(upjongNumber):
                 round(normalizedAverageSalesGrowthRates, 2),
                 round(normalizedAverageOperatingProfitsGrowthRates, 2)
             ])
+
+    os.remove(f"./data/growthRates/growthRates{upjongNumber}.csv")
