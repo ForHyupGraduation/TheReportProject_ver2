@@ -3,7 +3,7 @@ import "./Meter.css";
 
 const Meter = ({ progressEndValue }) => {
   const [isRunning, setIsRunning] = useState(true);
-  const [speed, setSpeed] = useState(10);
+  const [speed, setSpeed] = useState(15);
   const [progressValue, setProgressValue] = useState(0);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const Meter = ({ progressEndValue }) => {
           progressValue >= 90
             ? "#49c20f"
             : progressValue >= 70
-            ? "#5bf9f9"
+            ? "blue"
             : progressValue >= 30
             ? "#f0c14b"
             : progressValue >= 0
