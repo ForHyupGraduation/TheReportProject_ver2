@@ -20,8 +20,8 @@ const PostPerDayChart = ({ postPerDayData }) => {
   const recent = useMemo(() => postPerDayData.slice(0, 4), [postPerDayData]);
 
   useEffect(() => {
-    const recentPostPerDay = recent.map((dto) => dto.postPerDay);
-    const dates = recent.map((dto) => dto.companyDate);
+    const recentPostPerDay = recent.map((dto) => dto.postPerDay).reverse();
+    const dates = recent.map((dto) => dto.companyDate).reverse();
 
     setData({
       labels: dates,

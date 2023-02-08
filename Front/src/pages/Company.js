@@ -104,7 +104,7 @@ const MainContent = styled.div`
   color: black;
   padding: 30px;
   margin-bottom: 60px;
-  box-shadow: rgba(0, 0, 0, 0.03) 10px 10px;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
 `;
 
 const SubContents = styled.div`
@@ -115,10 +115,6 @@ const SubContents = styled.div`
 const Content = styled.div`
   display: flex;
   justify-content: space-around;
-`;
-
-const DeScribe = styled.div`
-  height: 30%;
 `;
 
 const SubTitle = styled.div`

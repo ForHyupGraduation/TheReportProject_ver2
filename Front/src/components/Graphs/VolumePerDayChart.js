@@ -20,8 +20,8 @@ const VolumePerDayChart = ({ volumePerDay }) => {
   const recent = useMemo(() => volumePerDay.slice(0, 4), [volumePerDay]);
 
   useEffect(() => {
-    const recentVolume = recent.map((dto) => dto.volumePerDay);
-    const dates = recent.map((dto) => dto.companyDate);
+    const recentVolume = recent.map((dto) => dto.volumePerDay).reverse();
+    const dates = recent.map((dto) => dto.companyDate).reverse();
 
     setData({
       labels: dates,

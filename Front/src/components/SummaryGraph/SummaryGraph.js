@@ -56,10 +56,14 @@ const SummaryGraph = ({ companyData }) => {
         <h1 style={{ textAlign: "center" }}>관심도</h1>
         <LineChart
           data={{
-            labels: recentInterest.map((interest) => interest.companyDate),
+            labels: recentInterest
+              .map((interest) => interest.companyDate)
+              .reverse(),
             datasets: [
               {
-                data: recentInterest.map((interest) => interest.interestPoint),
+                data: recentInterest
+                  .map((interest) => interest.interestPoint)
+                  .reverse(),
                 backgroundColor: "red",
               },
             ],

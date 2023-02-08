@@ -83,7 +83,7 @@ const Block = styled.div`
   display: flex;
   flex-direction: column;
   background-color: white;
-  box-shadow: rgba(0, 0, 0, 0.03) 10px 10px;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
   width: 100%;
 `;
 
