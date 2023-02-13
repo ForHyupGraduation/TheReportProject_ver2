@@ -42,6 +42,7 @@ const Resist = () => {
     }
     // document.location.href = "/login";
   };
+
   // useEffect(() => {
   //   axios
   //     .get("/add/member")

@@ -19,13 +19,13 @@ const App = () => {
   //   }, 50);
   //   return () => clearInterval(intervalId);
   // });
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     // color : "whiteSmoke"
     <div className="App" style={{ backgroundColor: "whitesmoke" }}>
       <Routes>
-        <Route element={<Header isLoggedIn={isLoggedIn} />}>
+        <Route element={<Header />}>
           <Route path="/" element={<Home />} />
           <Route path="/company/:name" element={<Company />} />
           <Route path="/upjong/:upjongNumber" element={<Upjong />} />
