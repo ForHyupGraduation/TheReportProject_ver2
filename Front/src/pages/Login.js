@@ -22,15 +22,20 @@ const Login = () => {
   const handleInputPw = (e) => {
     setInputPw(e.target.value);
   };
-  const onClickLogin = () => {
+  const onClickLogin = async () => {
     console.log("click login");
     console.log("ID : ", inputEmail);
     console.log("PW : ", inputPw);
-    axios
-      .post("http://localhost:8080/login", {
-        email: inputEmail,
-        password: inputPw,
-      })
+
+    await axios
+      .post(
+        "http://localhost:8080/login",
+        {
+          email: inputEmail,
+          password: inputPw,
+        },
+        null
+      )
       .then((res) => {
         console.log(res);
         console.log("res.data.userId :: ", res.data.userId);
