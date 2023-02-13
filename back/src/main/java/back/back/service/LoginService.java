@@ -2,6 +2,7 @@ package back.back.service;
 
 import back.back.domain.Member;
 import back.back.repository.MemberRepository;
+import back.back.util.PasswordResolver;
 import back.back.web.LoginForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,9 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class LoginService {
     private final MemberRepository memberRepository;
 
-    public void save(LoginForm loginForm) {
-        String password = loginForm.getPassword();
-        Member member = Member.getMember(loginForm.getEmail(), password, loginForm.getNickName());
+    public Member login(String email, String password) {
+        password = PasswordResolver.getHash(password);
+        return memberRepository.findByEmailAndPassword(email, password)
+                .orElse(null);
     }
 
 }
