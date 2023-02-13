@@ -1,6 +1,6 @@
 import React from "react";
 
-const NavBar = () => {
+const NavBar = (isLoggedIn) => {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
@@ -21,9 +21,9 @@ const NavBar = () => {
         <div className="collapse navbar-collapse" id="navbarText">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              {/* <a className="nav-link" href="#">
                 Features
-              </a>
+              </a> */}
             </li>
             <li className="nav-item">
               <a className="nav-link" href="/about">
@@ -32,11 +32,19 @@ const NavBar = () => {
             </li>
           </ul>
           <ul className="navbar-nav ml-auto">
-            <li className="nav-item">
-              <a className="nav-link" href="/login">
-                Login
-              </a>
-            </li>
+            {isLoggedIn ? (
+              <li className="nav-item">
+                <a className="nav-link" href="/user-profile">
+                  User Profile
+                </a>
+              </li>
+            ) : (
+              <li className="nav-item">
+                <a className="nav-link" href="/login">
+                  Login
+                </a>
+              </li>
+            )}
           </ul>
         </div>
       </div>

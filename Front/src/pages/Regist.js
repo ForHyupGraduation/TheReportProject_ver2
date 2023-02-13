@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Resist = () => {
@@ -26,24 +26,28 @@ const Resist = () => {
     console.log("ID : ", inputEmail);
     console.log("PW : ", inputPw);
 
-    axios
-      //serer url 요청
-      .post("/user_inform/resist", null, {
-        params: {
-          user_id: inputEmail,
-          user_pw: inputPw,
-          user_NickName: inputNickName,
-        },
-      })
-      .catch();
-    document.location.href = "/login";
+    if (inputEmail) {
+      axios
+        .post("http://localhost:8080/add/member", {
+          email: inputEmail,
+          password: inputPw,
+          nickName: inputNickName,
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+    // document.location.href = "/login";
   };
-  useEffect(() => {
-    axios
-      .get("/user_inform/resist")
-      .then((res) => console.log(res))
-      .catch();
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get("/add/member")
+  //     .then((res) => console.log(res))
+  //     .catch();
+  // }, []);
 
   return (
     <LoginContainer>
@@ -178,36 +182,36 @@ const LoginButton = styled.button`
   }
 `;
 
-const ExternalLogin = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin-top: 20px;
-`;
+// const ExternalLogin = styled.div`
+//   display: flex;
+//   justify-content: space-between;
+//   width: 100%;
+//   margin-top: 20px;
+// `;
 
-const ExternalLoginButton = styled.button`
-  width: 49%;
-  height: 40px;
-  background: #333;
-  color: #ffffff;
-  font-size: 14px;
-  font-weight: bold;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  transition: 0.3s;
+// const ExternalLoginButton = styled.button`
+//   width: 49%;
+//   height: 40px;
+//   background: #333;
+//   color: #ffffff;
+//   font-size: 14px;
+//   font-weight: bold;
+//   border-radius: 5px;
+//   border: none;
+//   cursor: pointer;
+//   transition: 0.3s;
 
-  &:hover {
-    background: #1e90ff;
-  }
-`;
-const SignUpLinkContainer = styled.div`
-  margin-top: 1rem;
-  text-align: center;
-`;
+//   &:hover {
+//     background: #1e90ff;
+//   }
+// `;
+// const SignUpLinkContainer = styled.div`
+//   margin-top: 1rem;
+//   text-align: center;
+// `;
 
-const SignUpLink = styled(Link)`
-  color: blue;
-  font-weight: bold;
-  text-decoration: underline;
-`;
+// const SignUpLink = styled(Link)`
+//   color: blue;
+//   font-weight: bold;
+//   text-decoration: underline;
+// `;

@@ -24,7 +24,6 @@ public class MemberController {
     public Member addMember(@RequestBody MemberForm form, BindingResult result) {
         System.out.println(form.getEmail());
         System.out.println(form.getPassword());
-
         Member member = service.save(form);
         MemberJoinResult joinResult = new MemberJoinResult(member);
         return member;

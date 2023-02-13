@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import React, { useEffect } from "react";
 import Company from "./pages/Company";
 import Upjong from "./pages/Upjong";
 import Header from "./components/Layouts/Header";
@@ -10,6 +9,7 @@ import Login from "./pages/Login";
 import Regist from "./pages/Regist";
 import Test from "./pages/Test";
 import Investor from "./pages/Investor";
+
 import { useState } from "react";
 const App = () => {
   // const [color, setColor] = useState();
@@ -19,12 +19,13 @@ const App = () => {
   //   }, 50);
   //   return () => clearInterval(intervalId);
   // });
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     // color : "whiteSmoke"
     <div className="App" style={{ backgroundColor: "whitesmoke" }}>
       <Routes>
-        <Route element={<Header />}>
+        <Route element={<Header isLoggedIn={isLoggedIn} />}>
           <Route path="/" element={<Home />} />
           <Route path="/company/:name" element={<Company />} />
           <Route path="/upjong/:upjongNumber" element={<Upjong />} />

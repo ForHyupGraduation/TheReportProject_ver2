@@ -3,10 +3,17 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Header from "../components/Layouts/Header";
 
 const Login = () => {
   const [inputEmail, setInputEmail] = useState("");
   const [inputPw, setInputPw] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogin = (event) => {
+    event.preventDefault();
+    setIsLoggedIn(true);
+  };
 
   const handleInputEmail = (e) => {
     setInputEmail(e.target.value);
@@ -45,66 +52,69 @@ const Login = () => {
           //id , pw 모두 일치 userId = userId1 , msg = undefined
           console.log("======================", "로그인 성공");
           sessionStorage.setItem("user_id", inputEmail);
+          handleLogin();
+          //작업 완료 되면 페이지 이동(새로고침)
+          document.location.href = "/";
         }
-        //작업 완료 되면 페이지 이동(새로고침)
-        document.location.href = "/";
       })
       .catch();
   };
-  useEffect(() => {
-    axios
-      .get("/user_inform/Login")
-      .then((res) => console.log(res))
-      .catch();
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get("/user_inform/Login")
+  //     .then((res) => console.log(res))
+  //     .catch();
+  // }, []);
 
   return (
-    <LoginContainer>
-      <LoginForm>
-        <LoginHeader>
-          <LoginTitle>Login</LoginTitle>
-          <LoginDescription>
-            Enter your details to start session
-          </LoginDescription>
-        </LoginHeader>
-        <LoginInput>
-          <LoginLabel htmlFor="input-E_mail">E-mail</LoginLabel>
-          <LoginText
-            type="text"
-            name="input-E_mail"
-            value={inputEmail}
-            onChange={handleInputEmail}
-          />
-        </LoginInput>
-        <LoginInput>
-          <LoginLabel htmlFor="input_pw">Password</LoginLabel>
-          <LoginText
-            type="password"
-            name="input_pw"
-            value={inputPw}
-            onChange={handleInputPw}
-          />
-        </LoginInput>
-        <LoginButtonContainer>
-          <LoginButton type="button" onClick={onClickLogin}>
-            Login
-          </LoginButton>
-          <ExternalLogin>
-            <ExternalLoginButton>
-              <i class="fa-brands fa-google"></i>
-            </ExternalLoginButton>
-            <ExternalLoginButton>
-              <i class="fa-solid fa-n"></i>
-            </ExternalLoginButton>
-          </ExternalLogin>
-        </LoginButtonContainer>
-        <SignUpLinkContainer>
-          <SignUpLink to={{ pathname: `/regist` }}>
-            Not a member yet?
-          </SignUpLink>
-        </SignUpLinkContainer>
-      </LoginForm>
-    </LoginContainer>
+    <>
+      <LoginContainer>
+        <LoginForm>
+          <LoginHeader>
+            <LoginTitle>Login</LoginTitle>
+            <LoginDescription>
+              Enter your details to start session
+            </LoginDescription>
+          </LoginHeader>
+          <LoginInput>
+            <LoginLabel htmlFor="input-E_mail">E-mail</LoginLabel>
+            <LoginText
+              type="text"
+              name="input-E_mail"
+              value={inputEmail}
+              onChange={handleInputEmail}
+            />
+          </LoginInput>
+          <LoginInput>
+            <LoginLabel htmlFor="input_pw">Password</LoginLabel>
+            <LoginText
+              type="password"
+              name="input_pw"
+              value={inputPw}
+              onChange={handleInputPw}
+            />
+          </LoginInput>
+          <LoginButtonContainer>
+            <LoginButton type="button" onClick={onClickLogin}>
+              Login
+            </LoginButton>
+            <ExternalLogin>
+              <ExternalLoginButton>
+                <i class="fa-brands fa-google"></i>
+              </ExternalLoginButton>
+              <ExternalLoginButton>
+                <i class="fa-solid fa-n"></i>
+              </ExternalLoginButton>
+            </ExternalLogin>
+          </LoginButtonContainer>
+          <SignUpLinkContainer>
+            <SignUpLink to={{ pathname: `/regist` }}>
+              Not a member yet?
+            </SignUpLink>
+          </SignUpLinkContainer>
+        </LoginForm>
+      </LoginContainer>
+    </>
   );
 };
 

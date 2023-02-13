@@ -4,10 +4,10 @@ import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import NavBar from "../NavBar/NavBar";
 
-const Header = () => {
+const Header = (isLoggedIn) => {
   return (
     <Title>
-      <NavBar />
+      <NavBar isLoggedIn={isLoggedIn} />
       <main>
         <Outlet />
       </main>
