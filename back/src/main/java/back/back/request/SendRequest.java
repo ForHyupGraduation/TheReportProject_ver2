@@ -15,7 +15,11 @@ public class SendRequest {
                     "썸에이지", "네오위즈홀딩스", "펄어비스", "더블유게임즈", "웹젠", "엠게임",
                     "넷마블", "미투온", "데브시스터즈", "컴투스", "조이시티", "룽투코리아",
                     "플레이위드", "모비릭스", "넥슨게임즈", "네오위즈"));
-    
+
+    public SendRequest() {
+
+    }
+
     public void sendRequest() {
         try {
             int i = 0;
@@ -34,4 +38,6 @@ public class SendRequest {
             e.printStackTrace();
         }
     }
+
+
 }

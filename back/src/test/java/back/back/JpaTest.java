@@ -39,9 +39,9 @@ public class JpaTest {
 
 
         Company company = new Company();
-        company.setNetProfit(netProfit);
+//        company.setNetProfit(netProfit);
         company.setOperatingProfit(operatingProfit);
-        company.setOperatingProfitMargin(operatingProfitMargin);
+//        company.setOperatingProfitMargin(operatingProfitMargin);
 
         em.persist(company);
     }
