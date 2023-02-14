@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const NavBar = () => {
   const logOut = () => {
     sessionStorage.clear();
-    window.location.reload();
+    window.location = "http://localhost:3000/";
   };
 
   return (
