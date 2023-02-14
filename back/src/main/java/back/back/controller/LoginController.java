@@ -35,7 +35,7 @@ public class LoginController {
         return "ok";
     }
 
-    @PostMapping("logout")
+    @PostMapping("/logout")
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if(session != null) {
