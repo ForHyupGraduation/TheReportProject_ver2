@@ -11,6 +11,7 @@ import Test from "./pages/Test";
 import Investor from "./pages/Investor";
 
 import { useState } from "react";
+import Profile from "./pages/Profile";
 const App = () => {
   // const [color, setColor] = useState();
   // useEffect(() => {
@@ -35,6 +36,7 @@ const App = () => {
           <Route path="/regist" element={<Regist />} />
           <Route path="/test" element={<Test />} />
           <Route path="/investor/:nickname" element={<Investor />} />
+          <Route path="/profile/:nickname" element={<Profile />} />
         </Route>
       </Routes>
     </div>

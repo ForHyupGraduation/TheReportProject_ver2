@@ -1,7 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
-  const isLoggedIn = false;
+  const logOut = () => {
+    sessionStorage.clear();
+    window.location.reload();
+  };
+
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
@@ -21,28 +26,36 @@ const NavBar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarText">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              {/* <a className="nav-link" href="#">
-                Features
-              </a> */}
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/about">
-                About
-              </a>
-            </li>
+            <a className="nav-link" href="/about">
+              About
+            </a>
+            <li className="nav-item"></li>
           </ul>
           <ul className="navbar-nav ml-auto">
-            {isLoggedIn ? (
+            {sessionStorage.getItem("data") ? (
               <li className="nav-item">
-                <a className="nav-link" href="/user-profile">
-                  User Profile
-                </a>
+                <Link
+                  to={{
+                    pathname: `/profile/${
+                      JSON.parse(sessionStorage.getItem("data")).nickName
+                    }`,
+                  }}
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                    alignContent: "center",
+                  }}
+                >
+                  <i class="fa-solid fa-circle-user fa-2x"></i>{" "}
+                </Link>
+                <button style={{ alignContent: "center" }} onClick={logOut}>
+                  <i class="fa-solid fa-right-from-bracket"></i>
+                </button>
               </li>
             ) : (
               <li className="nav-item">
                 <a className="nav-link" href="/login">
-                  Login
+                  Login <i class="fa-solid fa-right-to-bracket fa-lg"></i>
                 </a>
               </li>
             )}

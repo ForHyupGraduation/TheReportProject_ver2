@@ -8,12 +8,6 @@ import Header from "../components/Layouts/Header";
 const Login = () => {
   const [inputEmail, setInputEmail] = useState("");
   const [inputPw, setInputPw] = useState("");
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  // const handleLogin = (event) => {
-  //   event.preventDefault();
-  //   setIsLoggedIn(true);
-  // };
 
   const handleInputEmail = (e) => {
     setInputEmail(e.target.value);
@@ -38,8 +32,10 @@ const Login = () => {
       )
       .then((res) => {
         console.log(res);
-        console.log("res.data.userId :: ", res.data.userId);
-        console.log("res.data.msg :: ", res.data.msg);
+        console.log("res.data.userId :: ", res.data.id);
+        console.log("res.data.msg :: ", res.data.nickName);
+
+        const data = { id: res.data.id, nickName: res.data.nickName };
         // if (res.data.userId === undefined) {
         //   //id 일치치하지 않는 경우 userId = undefined, msg = '입력하신 ID가 일치하지 않습니다.'
         //   console.log("======================", res.data.msg);
@@ -52,14 +48,14 @@ const Login = () => {
         //   );
         // alert("입력하신 비밀번호가 일치하지 않습니다.");
         // }
-        if (res.data.userId === inputEmail) {
-          //id , pw 모두 일치 userId = userId1 , msg = undefined
-          console.log("======================", "로그인 성공");
-          sessionStorage.setItem("user_id", inputEmail);
-          // handleLogin();
-          //작업 완료 되면 페이지 이동(새로고침)
-          // document.location.href = "/";
-        }
+        // if (res.data.id === inputEmail) {
+        //id , pw 모두 일치 userId = userId1 , msg = undefined
+        console.log("======================", "로그인 성공");
+        sessionStorage.setItem("data", JSON.stringify(data));
+        console.log(sessionStorage.getItem("data"));
+        window.history.go(-1);
+        //작업 완료 되면 페이지 이동(새로고침)
+        // }
       })
       .catch();
   };
