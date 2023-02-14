@@ -13,7 +13,6 @@ public class BackApplication implements WebMvcConfigurer {
 		SpringApplication.run(BackApplication.class, args);
 	}
 
-
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**")

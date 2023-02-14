@@ -8,12 +8,12 @@ import Header from "../components/Layouts/Header";
 const Login = () => {
   const [inputEmail, setInputEmail] = useState("");
   const [inputPw, setInputPw] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const handleLogin = (event) => {
-    event.preventDefault();
-    setIsLoggedIn(true);
-  };
+  // const handleLogin = (event) => {
+  //   event.preventDefault();
+  //   setIsLoggedIn(true);
+  // };
 
   const handleInputEmail = (e) => {
     setInputEmail(e.target.value);
@@ -22,46 +22,50 @@ const Login = () => {
   const handleInputPw = (e) => {
     setInputPw(e.target.value);
   };
-  const onClickLogin = () => {
+  const onClickLogin = async () => {
     console.log("click login");
     console.log("ID : ", inputEmail);
     console.log("PW : ", inputPw);
-    axios
-      .post("/user_inform/onLogin", null, {
-        params: {
-          user_id: inputEmail,
-          user_pw: inputPw,
+
+    await axios
+      .post(
+        "http://localhost:8080/login",
+        {
+          email: inputEmail,
+          password: inputPw,
         },
-      })
+        null
+      )
       .then((res) => {
         console.log(res);
         console.log("res.data.userId :: ", res.data.userId);
         console.log("res.data.msg :: ", res.data.msg);
-        if (res.data.userId === undefined) {
-          //id 일치치하지 않는 경우 userId = undefined, msg = '입력하신 ID가 일치하지 않습니다.'
-          console.log("======================", res.data.msg);
-          alert("입력하신 ID 가 일치하지 않습니다.");
-        } else if (res.data.userId === null) {
-          //id는 있지만, pw는 다른 경우 userId = null , msg = undefined
-          console.log(
-            "======================",
-            "입력하신 비밀번호가 일치하지 않습니다."
-          );
-          alert("입력하신 비밀번호가 일치하지 않습니다.");
-        } else if (res.data.userId === inputEmail) {
+        // if (res.data.userId === undefined) {
+        //   //id 일치치하지 않는 경우 userId = undefined, msg = '입력하신 ID가 일치하지 않습니다.'
+        //   console.log("======================", res.data.msg);
+        //   alert("입력하신 ID 가 일치하지 않습니다.");
+        // } else if (res.data.userId === null) {
+        //   //id는 있지만, pw는 다른 경우 userId = null , msg = undefined
+        //   console.log(
+        //     "======================",
+        //     "입력하신 비밀번호가 일치하지 않습니다."
+        //   );
+        // alert("입력하신 비밀번호가 일치하지 않습니다.");
+        // }
+        if (res.data.userId === inputEmail) {
           //id , pw 모두 일치 userId = userId1 , msg = undefined
           console.log("======================", "로그인 성공");
           sessionStorage.setItem("user_id", inputEmail);
-          handleLogin();
+          // handleLogin();
           //작업 완료 되면 페이지 이동(새로고침)
-          document.location.href = "/";
+          // document.location.href = "/";
         }
       })
       .catch();
   };
   // useEffect(() => {
   //   axios
-  //     .get("/user_inform/Login")
+  //     .get("http://localhost:8080/login")
   //     .then((res) => console.log(res))
   //     .catch();
   // }, []);

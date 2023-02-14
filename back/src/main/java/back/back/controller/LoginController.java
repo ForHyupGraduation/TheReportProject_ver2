@@ -25,6 +25,9 @@ public class LoginController {
                           BindingResult result,
                           HttpServletRequest request) {
         Member loginMember = loginService.login(loginForm.getEmail(), loginForm.getPassword());
+        System.out.println(loginForm.getEmail().getClass().getName());
+        System.out.println( loginForm.getPassword().getClass().getName());
+
         if (loginMember == null) {
             return "not valid";
         }
@@ -32,6 +35,7 @@ public class LoginController {
         Cookie cookie = new Cookie("memberId", String.valueOf(loginMember.getId()));
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.LOGIN_INFO, loginMember);
+        System.out.println(cookie);
         return "ok";
     }
 

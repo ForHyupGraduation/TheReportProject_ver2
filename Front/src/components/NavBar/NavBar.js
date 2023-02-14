@@ -1,6 +1,7 @@
 import React from "react";
 
-const NavBar = (isLoggedIn) => {
+const NavBar = () => {
+  const isLoggedIn = false;
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
