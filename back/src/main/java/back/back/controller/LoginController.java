@@ -2,6 +2,7 @@ package back.back.controller;
 
 import back.back.domain.Member;
 import back.back.service.LoginService;
+import back.back.web.LoginDto;
 import back.back.web.LoginForm;
 import back.back.web.SessionConst;
 import jakarta.servlet.http.Cookie;
@@ -20,23 +21,36 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
     private final LoginService loginService;
 
+//    @PostMapping("/login")
+//    public String login(@RequestBody LoginForm loginForm,
+//                          BindingResult result,
+//                          HttpServletRequest request) {
+//        Member loginMember = loginService.login(loginForm.getEmail(), loginForm.getPassword());
+//        System.out.println(loginForm.getEmail().getClass().getName());
+//        System.out.println( loginForm.getPassword().getClass().getName());
+//
+//        if (loginMember == null) {
+//            return "not valid";
+//        }
+//
+//        Cookie cookie = new Cookie("memberId", String.valueOf(loginMember.getId()));
+//        HttpSession session = request.getSession();
+//        session.setAttribute(SessionConst.LOGIN_INFO, loginMember);
+//        return "ok";
+//    }
+
+
     @PostMapping("/login")
-    public String login(@RequestBody LoginForm loginForm,
-                          BindingResult result,
-                          HttpServletRequest request) {
-        Member loginMember = loginService.login(loginForm.getEmail(), loginForm.getPassword());
-        System.out.println(loginForm.getEmail().getClass().getName());
-        System.out.println( loginForm.getPassword().getClass().getName());
-
-        if (loginMember == null) {
-            return "not valid";
+    public LoginDto loginV2(@RequestBody LoginForm loginForm,
+                        BindingResult result,
+                        HttpServletRequest request) {
+        if(result.hasErrors()) {
+            return null;
         }
+        Member loginMember = loginService.login(loginForm.getEmail(), loginForm.getPassword());
+        LoginDto dto = new LoginDto(loginMember);
 
-        Cookie cookie = new Cookie("memberId", String.valueOf(loginMember.getId()));
-        HttpSession session = request.getSession();
-        session.setAttribute(SessionConst.LOGIN_INFO, loginMember);
-        System.out.println(cookie);
-        return "ok";
+        return dto;
     }
 
     @PostMapping("/logout")
