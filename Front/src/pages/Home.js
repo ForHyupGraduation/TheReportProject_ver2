@@ -66,8 +66,8 @@ function Home() {
           ></p>
         </div>
 
-        <div class="album py-5" style={{ height: "100vh" }}>
-          <div class="container">
+        <div className="album py-5" style={{ height: "100vh" }}>
+          <div className="container">
             <UpjongCards upjongs={upjongsInfo} />
           </div>
         </div>

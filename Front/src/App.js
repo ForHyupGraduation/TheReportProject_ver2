@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Regist from "./pages/Regist";
 import Test from "./pages/Test";
 import Investor from "./pages/Investor";
+import Portfolio from "./pages/Portfolio";
 
 import { useState } from "react";
 import Profile from "./pages/Profile";
@@ -37,6 +38,7 @@ const App = () => {
           <Route path="/test" element={<Test />} />
           <Route path="/investor/:nickname" element={<Investor />} />
           <Route path="/profile/:nickname" element={<Profile />} />
+          <Route path="/portfolio/:nickname" element={<Portfolio />} />
         </Route>
       </Routes>
     </div>

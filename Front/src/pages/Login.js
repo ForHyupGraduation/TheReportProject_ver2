@@ -53,7 +53,7 @@ const Login = () => {
         console.log("======================", "로그인 성공");
         sessionStorage.setItem("data", JSON.stringify(data));
         console.log(sessionStorage.getItem("data"));
-        window.history.go(-1);
+        window.location = "http://localhost:3000/";
         //작업 완료 되면 페이지 이동(새로고침)
         // }
       })
@@ -100,10 +100,10 @@ const Login = () => {
             </LoginButton>
             <ExternalLogin>
               <ExternalLoginButton>
-                <i class="fa-brands fa-google"></i>
+                <i className="fa-brands fa-google"></i>
               </ExternalLoginButton>
               <ExternalLoginButton>
-                <i class="fa-solid fa-n"></i>
+                <i className="fa-solid fa-n"></i>
               </ExternalLoginButton>
             </ExternalLogin>
           </LoginButtonContainer>

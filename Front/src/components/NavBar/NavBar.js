@@ -46,16 +46,16 @@ const NavBar = () => {
                     alignContent: "center",
                   }}
                 >
-                  <i class="fa-solid fa-circle-user fa-2x"></i>{" "}
+                  <i className="fa-solid fa-circle-user fa-2x"></i>{" "}
                 </Link>
                 <button style={{ alignContent: "center" }} onClick={logOut}>
-                  <i class="fa-solid fa-right-from-bracket"></i>
+                  <i className="fa-solid fa-right-from-bracket"></i>
                 </button>
               </li>
             ) : (
               <li className="nav-item">
                 <a className="nav-link" href="/login">
-                  Login <i class="fa-solid fa-right-to-bracket fa-lg"></i>
+                  Login <i className="fa-solid fa-right-to-bracket fa-lg"></i>
                 </a>
               </li>
             )}
