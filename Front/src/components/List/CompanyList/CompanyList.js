@@ -1,8 +1,15 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import CompanyListElement from "./CompanyListElement";
 
 const CompanyList = ({ companies, page }) => {
+  const [like, setLike] = useState(false);
+  const [isLoading, setIsLoading] = useState();
+  const [loggedIn, setLoggedIn] = useState(true);
+
   if (page) {
+    console.log("로그드인1");
+
     return (
       <div>
         <table className="table table-striped">
@@ -31,7 +38,40 @@ const CompanyList = ({ companies, page }) => {
         </table>
       </div>
     );
+  } else if (loggedIn) {
+    console.log("로그드인2");
+    return (
+      <div>
+        <table className="table table-striped">
+          <thead>
+            <tr style={{ fontSize: "0.8rem", fontWeight: "bold" }}>
+              <th scope="col">#</th>
+              <th scope="col">회사이름</th>
+              <th scope="col">대중성</th>
+              <th scope="col">성장성</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody style={{ fontSize: "0.8rem" }}>
+            {companies.map((company, index) => {
+              return (
+                <CompanyListElement
+                  key={index}
+                  interestPoint={company.interestPoint}
+                  growthPoint={company.growthPoint}
+                  companyName={company.companyName}
+                  eventKey={index}
+                  loggedIn={loggedIn}
+                />
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    );
   }
+  console.log("로그드인");
+
   return (
     <div>
       <table className="table table-striped">
