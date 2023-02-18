@@ -35,15 +35,6 @@ public class Company {
     @JsonIgnore
     private List<PostAndTrading> postAndTradings = new ArrayList<>();
 
-
-//
-//    @OneToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "net_profit_id")
-//    private NetProfit netProfit;
-//    @OneToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "operating_profit_margin_id")
-//    private OperatingProfitMargin operatingProfitMargin;
-
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<News> news = new ArrayList<>();

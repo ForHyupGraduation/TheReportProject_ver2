@@ -16,6 +16,7 @@ import java.util.List;
 
 @Component
 public class CsvFileReader {
+
     public NormalizedGrowthRatio readGrowthRatio(String categoryName, String companyCode) {
         try {
             List<NormalizedGrowthRatio> normalizedGrowthRatios = new CsvToBeanBuilder(new FileReader(growthPathResolver(categoryName)))
@@ -78,8 +79,6 @@ public class CsvFileReader {
                     .filter(oper -> oper.getCompanyCode().equals(companyCode))
                     .findFirst()
                     .orElse(null);
-
-            System.out.println("operatingProfit.getOperatingFourYearsAgo() = " + operatingProfit.getOperatingProfitsFourYearsAgo());
             return operatingProfit;
 
         } catch (FileNotFoundException e) {
@@ -149,7 +148,5 @@ public class CsvFileReader {
         List<PostAndTrading> postAndTradings = csvFileReader.postAndTrading("020120");
         MinMaxRatioDto minMaxRatioDto = csvFileReader.readMinMaxRatio("020120");
         List<NormalizedInterestRatio> inter = csvFileReader.readInterestRatio("020120");
-
-
     }
 }
