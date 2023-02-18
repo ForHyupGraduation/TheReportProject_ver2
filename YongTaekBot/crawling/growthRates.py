@@ -112,6 +112,11 @@ def GetCompanyGrowthRates(driver, companyCode, oneTime = False):
         if len(yearlyOperatingProfitsGrowthRates) != 0:
             averageYearlyOperatingProfitsGrowthRate = sum(yearlyOperatingProfitsGrowthRates) / len(yearlyOperatingProfitsGrowthRates)
     
+        if(len(yearlySales) == 3):
+            yearlySales.append(0.0)
+        if(len(yearlyOperatingProfits) == 3):
+            yearlyOperatingProfits.append(0.0)
+
         return {
             "companyGrowthRatesData": companyGrowthRatesDataClass(companyName, companyCode, averageYearlySalesGrowthRate, averageYearlyOperatingProfitsGrowthRate),
             "yearlySales": yearlySales,
@@ -141,6 +146,8 @@ def DownloadGrowthDataSet(upjongNumber):
             pass
         with open(f"{YEARLY_OPERATING_PROFITS_DB_PATH_IN_DB}/operatingProfits{upjongNumber}.csv", 'w', newline='', encoding='UTF-8') as csvfile:
             pass
+    
+    for companyCode in companyCodes:
         companyGrowthRates = GetCompanyGrowthRates(driver=driver, companyCode=companyCode, oneTime=False)
         companyGrowthRatesData = companyGrowthRates["companyGrowthRatesData"]
         yearlySales = companyGrowthRates["yearlySales"]
