@@ -4,8 +4,7 @@ from urllib.parse import urlparse
 from crawling import GetComapnyMainPageURL
 from crawling import GetUpjongPageURL
 from crawling import CreateChromeDriver
-from crawling import InitGrowthRates
-from crawling import InitYearly
+
 
 from crawling import companyGrowthRatesDataClass
 
@@ -119,6 +118,8 @@ def GetCompanyGrowthRates(driver, companyCode, oneTime = False):
             "yearlyOperatingProfits": yearlyOperatingProfits
         }
     except:
+        yearlySales = []
+        yearlyOperatingProfits = []
         return {
             "companyGrowthRatesData": companyGrowthRatesDataClass(companyName, companyCode, 0, 0),
             "yearlySales": yearlySales,
@@ -128,8 +129,9 @@ def GetCompanyGrowthRates(driver, companyCode, oneTime = False):
 
 
 def DownloadGrowthDataSet(upjongNumber):
-    driver = CreateChromeDriver()
+    driver = CreateChromeDriver()    
     companyCodes = GetCompanyCodes(driver=driver, oneTime=False, upjongNumber=upjongNumber)
+
 
     with open(f"./data/growthRates/growthRates{upjongNumber}.csv", 'w', newline='', encoding='UTF-8') as csvfile:
         pass
@@ -139,14 +141,10 @@ def DownloadGrowthDataSet(upjongNumber):
             pass
         with open(f"{YEARLY_OPERATING_PROFITS_DB_PATH_IN_DB}/operatingProfits{upjongNumber}.csv", 'w', newline='', encoding='UTF-8') as csvfile:
             pass
-
-    for companyCode in companyCodes:
         companyGrowthRates = GetCompanyGrowthRates(driver=driver, companyCode=companyCode, oneTime=False)
-
         companyGrowthRatesData = companyGrowthRates["companyGrowthRatesData"]
         yearlySales = companyGrowthRates["yearlySales"]
         yearlyOperatingProfits = companyGrowthRates["yearlyOperatingProfits"]
-
         with open(f"./data/growthRates/growthRates{upjongNumber}.csv", 'a', newline='', encoding='UTF-8') as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow([
@@ -156,23 +154,19 @@ def DownloadGrowthDataSet(upjongNumber):
                 companyGrowthRatesData.averageOperatingProfitsGrowthRate
             ])
             pass
-
         with open(f"{YEARLY_SALES_DB_PATH_IN_DB}/sales{upjongNumber}.csv", 'a', newline='', encoding='UTF-8') as csvfile:
             writer = csv.writer(csvfile)
             
             companyName = companyGrowthRatesData.companyName
             yearlySales.insert(0, companyCode)
             yearlySales.insert(0, companyName)
-
             writer.writerow(yearlySales)
-
-
         with open(f"{YEARLY_OPERATING_PROFITS_DB_PATH_IN_DB}/operatingProfits{upjongNumber}.csv", 'a', newline='', encoding='UTF-8') as csvfile:
             writer = csv.writer(csvfile)
             
             companyName = companyGrowthRatesData.companyName
             yearlyOperatingProfits.insert(0, companyCode)
             yearlyOperatingProfits.insert(0, companyName)
-
             writer.writerow(yearlyOperatingProfits)
 
+    driver.close()

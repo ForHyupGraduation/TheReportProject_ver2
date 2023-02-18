@@ -1,6 +1,7 @@
 from yongTaek import YongTaekBot
 
-#Complete
-yongTaekThree = YongTaekBot("316", 200, 50)
+#Complete 316
+#Complete 275
+yongTaekThree = YongTaekBot("268", 50, 25)
 yongTaekThree.SetCompanyCodes()
 yongTaekThree.DownloadAllData()

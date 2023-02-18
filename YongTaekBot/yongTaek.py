@@ -2,6 +2,7 @@ from crawling.post import DownloadPostDataSet
 from crawling.volume import DownloadVolumeDataSet
 from crawling.growthRates import DownloadGrowthDataSet, GetCompanyCodes
 from crawling import CreateChromeDriver
+from crawling import CheckIsKonex
 
 from merging.interest import DownloadInterests
 
@@ -25,15 +26,6 @@ def DownloadGrowthRatesWithSalesAndOperatingProfits(upjongNumber):
     AddSalesTitlesToSalesCSVFile(upjongNumber)
     AddOperatingProfitsTitlesToOperatingProfitsCSVFile(upjongNumber)
 
-def DownloadAllData(upjongNumber, postLastPageNumber, volumeLastPageNumber):
-    companyCodes = GetCompanyCodes(upjongNumber)
-    for companyCode in companyCodes:
-        try:
-            DownloadOneInterestsFileInDB(companyCode, postLastPageNumber, volumeLastPageNumber)
-            DownloadGrowthRatesWithSalesAndOperatingProfits(upjongNumber)
-        except:
-            pass
-
 class YongTaekBot:
     def __init__(self, upjongNumber, postLastPageNumber, volumeLastPageNumber) -> None:
         self.companyCodes = []
@@ -46,5 +38,7 @@ class YongTaekBot:
         driver.close()
     def DownloadAllData(self):
         for companyCode in self.companyCodes:
-            DownloadOneInterestsFileInDB(companyCode, self.postLastPageNumber, self.volumeLastPageNumber)
-            DownloadGrowthRatesWithSalesAndOperatingProfits(self.upjongNumber)
+            isKonex = CheckIsKonex(companyCode)
+            if(not isKonex):
+                DownloadOneInterestsFileInDB(companyCode, self.postLastPageNumber, self.volumeLastPageNumber)
+                DownloadGrowthRatesWithSalesAndOperatingProfits(self.upjongNumber)

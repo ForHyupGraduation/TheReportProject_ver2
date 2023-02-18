@@ -1,11 +1,17 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
+
 import os
 import random
+import time
 
 YEARLY_SALES_DB_PATH_IN_DB = "../DB/yearly/sales"
 YEARLY_OPERATING_PROFITS_DB_PATH_IN_DB = "../DB/yearly/operatingProfits"
+
+TMP_VOLUME_DB_PATH = "./data/volume"
+TMP_POST_DB_PATH = "./data/post"
 
 userAgents = [
 "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36 RuxitSynthetic/1.0 v4508262480646156115 t2724773385614408303 athe94ac249 altpriv cvcv=2 cexpw=1 smf=0",
@@ -125,5 +131,25 @@ def CreateChromeDriver():
 
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
     return driver
+
+def CheckIsKonex(companyCode):
+    driver = CreateChromeDriver()
+
+    isKonex = False
+    companyURL = f"https://finance.naver.com/item/main.naver?code={companyCode}"
+    
+    driver.get(companyURL)
+    time.sleep(random.randrange(5, 7))
+    konexInKorean = driver.find_element(By.XPATH, '//*[@id="content"]/div[2]/div/table/tbody/tr[3]/td[1]').text
+
+    if (konexInKorean == "코넥스"):
+        isKonex = True
+        print(f"[-] {companyCode} is in Konex")
+    else:
+        isKonex = False
+
+    driver.close()
+    return isKonex
+
 
 InitCrawling()

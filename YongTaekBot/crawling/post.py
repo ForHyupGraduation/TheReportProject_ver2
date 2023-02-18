@@ -5,8 +5,7 @@ from crawling import GetFinanceBoardURL
 from crawling import InitPost
 
 from crawling import postDataClass
-
-
+from crawling import TMP_POST_DB_PATH
 
 import time
 import random
@@ -14,7 +13,7 @@ import csv
 
 def GetPostDataSetFromCSV(companyCode):
     postDataSet = []
-    with open(f"./data/post/post{companyCode}.csv", 'r', encoding='utf-8') as csvfile:
+    with open(f"{TMP_POST_DB_PATH}/post{companyCode}.csv", 'r', encoding='utf-8') as csvfile:
         reader = csv.reader(csvfile)
         for row in reader:
             newPostData = postDataClass(row[0], row[1], row[2], row[3])
@@ -42,8 +41,8 @@ def GetPostDataSet(driver, postDataSet, companyCode):
     return postDataSet
 
 def DownloadPostDataSet(companyCode, lastPageNumber):
-    InitPost(companyCode)
     driver = CreateChromeDriver()
+    InitPost(companyCode)
     
     for pageNumber in range(1, lastPageNumber + 1):
         driver.get(GetFinanceBoardURL(companyCode, pageNumber))
@@ -51,11 +50,10 @@ def DownloadPostDataSet(companyCode, lastPageNumber):
         
         # a Mode로 바꿔보기
         postDataSet = GetPostDataSet(driver, GetPostDataSetFromCSV(companyCode), companyCode)
-        with open(f"./data/post/post{companyCode}.csv", 'w', newline='', encoding='UTF-8') as csvfile:
+        with open(f"{TMP_POST_DB_PATH}/post{companyCode}.csv", 'w', newline='', encoding='UTF-8') as csvfile:
             writer = csv.writer(csvfile)
             for postData in postDataSet:
                 writer.writerow([postData.companyName, postData.companyCode, postData.postingDate, postData.posts])
-
         print(f"[+] Success To Crawl The Posts In {postData.companyName} {pageNumber} Page Number")
         time.sleep(random.randrange(5, 7))
     driver.close()
