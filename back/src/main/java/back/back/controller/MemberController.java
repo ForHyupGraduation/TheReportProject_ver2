@@ -21,18 +21,14 @@ public class MemberController {
     private final MemberService service;
 
     @PostMapping("/add/member")
-    public Member addMember(@RequestBody MemberForm form, BindingResult result) {
-        System.out.println(form.getEmail());
-        System.out.println(form.getPassword());
+    public MemberJoinResult addMember(@RequestBody MemberForm form, BindingResult result) {
         Member member = service.save(form);
         MemberJoinResult joinResult = new MemberJoinResult(member);
-        return member;
+        return joinResult;
     }
 
     @PostMapping
     public String update() {
-
         return "ok";
     }
-
 }

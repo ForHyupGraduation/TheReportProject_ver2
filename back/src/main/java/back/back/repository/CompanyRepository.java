@@ -15,7 +15,6 @@ public class CompanyRepository {
 
     public Long save(Company company) {
         em.persist(company);
-
         return company.getId();
     }
 

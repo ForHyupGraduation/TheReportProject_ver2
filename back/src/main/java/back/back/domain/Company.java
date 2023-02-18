@@ -40,7 +40,6 @@ public class Company {
 //    @OneToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "net_profit_id")
 //    private NetProfit netProfit;
-
 //    @OneToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "operating_profit_margin_id")
 //    private OperatingProfitMargin operatingProfitMargin;
@@ -72,6 +71,8 @@ public class Company {
 
     private Integer interestPoint;
 
+    private Integer subscribed;
+
     public void addNews(List<News> news) {
         for (News news1 : news) {
             this.news.add(news1);
@@ -91,5 +92,13 @@ public class Company {
             this.postAndTradings.add(postAndTrading);
             postAndTrading.setCompany(this);
         }
+    }
+
+    public void addSubscriber() {
+        subscribed += 1;
+    }
+
+    public void removeSubscriber() {
+        subscribed -= 1;
     }
 }
