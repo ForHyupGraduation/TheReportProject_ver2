@@ -19,4 +19,10 @@ public class MemberService {
         return member;
     }
 
+    public Member findById(Long memberId)
+    {
+        return memberRepository.findById(memberId)
+                .orElse(null);
+    }
+
 }

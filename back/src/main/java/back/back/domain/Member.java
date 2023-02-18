@@ -34,6 +34,11 @@ public class Member {
         return member;
     }
 
+    public void addPortFolios(PortFolio portFolio) {
+        this.portFolios.add(portFolio);
+        portFolio.setMember(this);
+    }
+
 
 
 }
