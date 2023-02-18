@@ -35,19 +35,28 @@ def GetDuplicatedCompanyCodes():
 
 def GetInterests(companyCode):
     interests = []
-    with open(f"./data/post/post{companyCode}.csv", 'r', encoding='UTF-8') as csvfile:
-        reader = csv.reader(csvfile)
-        for row in reader:
-            newInterestData = InterestDataClass(row[0], row[1], row[2], row[3], None)
-            interests.append(newInterestData)
-    with open(f"./data/volume/volume{companyCode}.csv", 'r', encoding='UTF-8') as csvfile:
-        reader = csv.reader(csvfile)
-        for row in reader:
-            for interest in interests:
-                if row[2] == interest.companyDate:
-                    interest.volume = row[3]
-                    pass
-        return interests
+    if os.path.exists(f"./data/post/post{companyCode}.csv"):
+        with open(f"./data/post/post{companyCode}.csv", 'r', encoding='UTF-8') as csvfile:
+            reader = csv.reader(csvfile)
+            for row in reader:
+                newInterestData = InterestDataClass(row[0], row[1], row[2], row[3], None)
+                interests.append(newInterestData)
+    else:
+        print(f"[-] Error {companyCode} in GetInterests")
+        pass
+    if os.path.exists(f"./data/volume/volume{companyCode}.csv"):
+        with open(f"./data/volume/volume{companyCode}.csv", 'r', encoding='UTF-8') as csvfile:
+            reader = csv.reader(csvfile)
+            for row in reader:
+                for interest in interests:
+                    if row[2] == interest.companyDate:
+                        interest.volume = row[3]
+                        pass
+    else:
+        print(f"[-] Error {companyCode} in GetInterests")
+        pass
+    
+    return interests
 
 def GetInterestsWithoutNoneValues(interests):
     interestsWithoutNoneValues = []
@@ -58,17 +67,21 @@ def GetInterestsWithoutNoneValues(interests):
 
 def DownloadInterests(companyCode):
     interests = GetInterestsWithoutNoneValues(GetInterests(companyCode))
-    companyCode = interests[0].companyCode
-    with open(f"{INTEREST_PATH_IN_DB}/interest{companyCode}.csv", 'w', newline='', encoding='UTF-8') as csvfile:
-        writer = csv.writer(csvfile)
-        for interest in interests:
-            writer.writerow([
-                interest.companyName,
-                interest.companyCode,
-                interest.companyDate,
-                interest.posts,
-                interest.volume
-            ])
+
+    try:
+        companyCode = interests[0].companyCode
+        with open(f"{INTEREST_PATH_IN_DB}/interest{companyCode}.csv", 'w', newline='', encoding='UTF-8') as csvfile:
+            writer = csv.writer(csvfile)
+            for interest in interests:
+                writer.writerow([
+                    interest.companyName,
+                    interest.companyCode,
+                    interest.companyDate,
+                    interest.posts,
+                    interest.volume
+                ])
+    except:
+        print(f"[-] Error {companyCode}")
 
     os.remove(f"./data/post/post{companyCode}.csv")
     os.remove(f"./data/volume/volume{companyCode}.csv")

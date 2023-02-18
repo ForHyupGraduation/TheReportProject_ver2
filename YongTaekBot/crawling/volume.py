@@ -28,7 +28,11 @@ def GetVolumeDataSet(driver, volumeDataSet, companyCode):
         if not ("날짜" in tdElement.text or "순매매량" in tdElement.text or None or tdElement.text == "" or tdElement.text == " "):
             tdDate = tdElement.find_elements(By.TAG_NAME, 'td')[0].text
             volume = tdElement.find_elements(By.TAG_NAME, 'td')[4].text
-            newVolumeData = volumeDataClass(companyName, companyCode, tdDate, int(volume.replace(',', '')))
+            newVolumeData = None
+            try:
+                newVolumeData = volumeDataClass(companyName, companyCode, tdDate, int(volume.replace(',', '')))
+            except:
+                newVolumeData = volumeDataClass(companyName, companyCode, tdDate, 0)
             volumeDataSet.append(newVolumeData)
     return volumeDataSet
 

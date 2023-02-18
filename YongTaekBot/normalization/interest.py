@@ -47,31 +47,36 @@ def GetInterestsData(companyCode):
     }
 
 def DownloadNormalizedInterests(companyCode):
-    interests = GetInterestsData(companyCode)
+    if os.path.exists(f"{INTEREST_DB_PATH_IN_DB}/interest{companyCode}.csv"):
+        interests = GetInterestsData(companyCode)
+        with open(f"{NORMALIZED_INTEREST_DB_PATH_IN_DB}/interest{companyCode}.csv", 'w', newline='', encoding='UTF-8') as csvfile:
+            pass
 
-    with open(f"{NORMALIZED_INTEREST_DB_PATH_IN_DB}/interest{companyCode}.csv", 'w', newline='', encoding='UTF-8') as csvfile:
+        for interest in interests['interests']:
+            normalizedPosts = round(GetNormalizationValue(
+                interest.posts,
+                interests['minPosts'],
+                interests['maxPosts']
+            ), 2)
+            normalizedVolume = round(GetNormalizationValue(
+                interest.volume,
+                interests['minVolume'],
+                interests['maxVolume']
+            ), 2)
+
+            with open(f"{NORMALIZED_INTEREST_DB_PATH_IN_DB}/interest{companyCode}.csv", 'a', newline='', encoding='UTF-8') as csvfile:
+                writer = csv.writer(csvfile)
+                writer.writerow([
+                    interest.companyName,
+                    companyCode,
+                    interest.companyDate,
+                    normalizedPosts,
+                    normalizedVolume
+                ])
+        print(f"[+] Success To Download normalizedInterest{companyCode}.csv")
+        
+    else:
+        print(f"[-] There is no file {INTEREST_DB_PATH_IN_DB}/interest{companyCode}.csv")
         pass
 
-    for interest in interests['interests']:
-        normalizedPosts = round(GetNormalizationValue(
-            interest.posts,
-            interests['minPosts'],
-            interests['maxPosts']
-        ), 2)
-        normalizedVolume = round(GetNormalizationValue(
-            interest.volume,
-            interests['minVolume'],
-            interests['maxVolume']
-        ), 2)
-
-        with open(f"{NORMALIZED_INTEREST_DB_PATH_IN_DB}/interest{companyCode}.csv", 'a', newline='', encoding='UTF-8') as csvfile:
-            writer = csv.writer(csvfile)
-            writer.writerow([
-                interest.companyName,
-                companyCode,
-                interest.companyDate,
-                normalizedPosts,
-                normalizedVolume
-            ])
-
-    print(f"[+] Success To Download normalizedInterest{companyCode}.csv")
+    

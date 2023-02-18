@@ -44,6 +44,7 @@ def GetPostDataSet(driver, postDataSet, companyCode):
 def DownloadPostDataSet(companyCode, lastPageNumber):
     InitPost(companyCode)
     driver = CreateChromeDriver()
+    
     for pageNumber in range(1, lastPageNumber + 1):
         driver.get(GetFinanceBoardURL(companyCode, pageNumber))
         time.sleep(random.randrange(5, 7))
