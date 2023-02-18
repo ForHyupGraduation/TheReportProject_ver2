@@ -83,18 +83,21 @@ def GetCompanyGrowthRates(driver, companyCode, oneTime = False):
         yearlySales = []
         yearlyOperatingProfits = []
 
-
         for trElement in trElements:
             if "매출액" in trElement.text and "매출액(억" not in trElement.text:
                 if len(trElement.text.split(' ')) == 11 or len(trElement.text.split(' ')) == 8:
                     yearlySales = ChangeStringNumbersToFloatNumbers(trElement.text.split(' ')[1:5])
                 elif len(trElement.text.split(' ')) == 13 or len(trElement.text.split(' ')) == 12:
                     yearlySales = ChangeStringNumbersToFloatNumbers(trElement.text.split(' ')[1:4])
+                elif len(trElement.text.split(' ')) == 9:
+                    yearlySales = ChangeStringNumbersToFloatNumbers(trElement.text.split(' ')[1:4])
 
             if "영업이익" in trElement.text and "영업이익(억" not in trElement.text and "영업이익률" not in trElement.text and "영업이익증가율(%)" not in trElement.text:
                 if len(trElement.text.split(' ')) == 11 or len(trElement.text.split(' ')) == 8:
                     yearlyOperatingProfits = ChangeStringNumbersToFloatNumbers(trElement.text.split(' ')[1:5])
                 elif len(trElement.text.split(' ')) == 13 or len(trElement.text.split(' ')) == 12:
+                    yearlyOperatingProfits = ChangeStringNumbersToFloatNumbers(trElement.text.split(' ')[1:4])
+                elif len(trElement.text.split(' ')) == 9:
                     yearlyOperatingProfits = ChangeStringNumbersToFloatNumbers(trElement.text.split(' ')[1:4])
 
         if oneTime:

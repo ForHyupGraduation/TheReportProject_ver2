@@ -5,10 +5,6 @@ from crawling.growthRates import GetCompanyGrowthRates
 from normalization.growthRates import DownloadNormalizedGrowthRates
 from subFeatures.addTitle import AddInterestTitlesToInterestsCSVFile, AddGrowthRatesTitlesToNormalizedGrowthRatesCSVFile, AddSalesTitlesToSalesCSVFile, AddOperatingProfitsTitlesToOperatingProfitsCSVFile
 
-
-
-
-
 upjongNumbers = [
     "263",
     "300",
