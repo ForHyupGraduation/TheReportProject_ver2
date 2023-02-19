@@ -4,3 +4,5 @@ from yongTaek import YongTaekBot
 yongTaekTwo = YongTaekBot("301", 200, 50)
 yongTaekTwo.SetCompanyCodes()
 yongTaekTwo.DownloadAllData()
+
+import os
