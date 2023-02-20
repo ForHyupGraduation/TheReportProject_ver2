@@ -1,5 +1,6 @@
 package back.back.controller;
 
+import back.back.TestMapping;
 import back.back.crawler.BuzzInfoCrawler;
 import back.back.crawler.NewsCrawler;
 import back.back.domain.Company;
@@ -8,15 +9,15 @@ import back.back.request.SendRequest;
 import back.back.service.CompanyService;
 import back.back.web.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class CompanyController {
     private final CompanyService companyService;
     private final SendRequest sendRequest;
@@ -50,6 +51,13 @@ public class CompanyController {
     @GetMapping("/operate")
     public String operate() throws InterruptedException {
         sendRequest.sendRequest();
+        return "ok";
+    }
+
+    @PostMapping("/test/add")
+    public String test(@RequestBody TestMapping test) {
+        log.info("test.id = {}", test.getId());
+        log.info("test.companyName = {}", test.getCompanyName());
         return "ok";
     }
 }
