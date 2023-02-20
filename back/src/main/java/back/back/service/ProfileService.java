@@ -34,7 +34,7 @@ public class ProfileService {
                 .findFirst()
                 .orElse(null);
         company.addSubscriber();
-        PortFolio portFolio = portFolioRepository.save(Po                           rtFolio.makePortPolio(company));
+        PortFolio portFolio = portFolioRepository.save(PortFolio.makePortPolio(company));
         member.addPortFolios(portFolio);
         return member;
     }
