@@ -26,7 +26,8 @@ public class ProfileService {
         Company company = companyRepository
                 .findByCompanyName(companyName)
                 .stream()
-                .findFirst().orElse(null);
+                .findFirst()
+                .orElse(null);
         company.addSubscriber();
         PortFolio portFolio = portFolioRepository.save(PortFolio.makePortPolio(company));
         member.addPortFolios(portFolio);

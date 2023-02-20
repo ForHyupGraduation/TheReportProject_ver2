@@ -54,7 +54,6 @@ public class Company {
     @JoinColumn(name = "growth_ratio_id")
     private NormalizedGrowthRatio normalizedGrowthRatio;
 
-
     @Embedded
     private MinMaxRatio minMaxRatio;
 
@@ -62,7 +61,7 @@ public class Company {
 
     private Integer interestPoint;
 
-    private Integer subscribed = 0;
+    private Integer subscribed = Integer.valueOf(0);
 
     public void addNews(List<News> news) {
         for (News news1 : news) {
@@ -86,7 +85,7 @@ public class Company {
     }
 
     public void addSubscriber() {
-        this.subscribed += subscribed.intValue() + 1;
+        this.subscribed = Integer.valueOf(this.subscribed.intValue() + 1);
     }
 
     public void removeSubscriber() {
