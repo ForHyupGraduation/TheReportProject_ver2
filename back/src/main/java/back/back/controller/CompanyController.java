@@ -9,6 +9,7 @@ import back.back.service.CompanyService;
 import back.back.web.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,7 +28,7 @@ public class CompanyController {
     }
 
     @GetMapping("/test")
-    public CompanyDto test(@RequestParam String companyName){
+    public CompanyDto test(@RequestBody String companyName){
         CompanyDto companyDto = companyService.mainPage(companyName);
         List<CompanySimpleInfo> simpleInfos = companyService.getSimpleCompanyInfo(companyDto.getCategoryName());
         companyDto.setCompanySimpleInfos(simpleInfos);
