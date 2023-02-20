@@ -42,17 +42,24 @@ const CompanyListElement = ({
     setLike(!like);
   };
 
-  const subscribe = (e) => {
-    // await axios
-    //   .post(
-    //     "http://localhost:8080/add/portfolio",
-    //     {
-    //       memberId: JSON.parse(sessionStorage.getItem("data")).id,
-    //       companyName: { companyName },
-    //     },
-    //     null
-    //   )
-    //   .then((res) => {});
+  const subscribe = async (e) => {
+    let data = {
+      memberId: JSON.parse(sessionStorage.getItem("data")).id,
+      companyName: companyName,
+    };
+    console.log(data);
+    await axios
+      .post("http://localhost:8080/add/portpolio", data, {
+        headers: {
+          "Content-Type": `application/json`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     setSubscribeLoading(true);
   };
 
