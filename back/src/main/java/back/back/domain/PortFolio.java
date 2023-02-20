@@ -22,13 +22,10 @@ public class PortFolio {
 
     private Integer interestPoint;
 
-    private Integer growthPoint;
-
-    public PortFolio(String cateGoryName, String companyName, Integer interestPoint, Integer growthPoint) {
+    public PortFolio(String cateGoryName, String companyName, Integer interestPoint) {
         this.cateGoryName = cateGoryName;
         this.companyName = companyName;
         this.interestPoint = interestPoint;
-        this.growthPoint = growthPoint;
     }
 
     @ManyToOne
@@ -38,7 +35,6 @@ public class PortFolio {
 
     public static PortFolio makePortPolio(Company company) {
         return new PortFolio(company.getCategoryName(),
-                company.getCompanyName(), company.getInterestPoint(),
-                company.getGrowthPoint());
+                company.getCompanyName(), 20);
     }
 }
