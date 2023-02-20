@@ -38,5 +38,4 @@ public class ProfileController {
         MyProfileDto myProfileDto = new MyProfileDto(member);
         return myProfileDto;
     }
-
 }
