@@ -2,8 +2,6 @@ package back.back.web.portfolio;
 
 import back.back.domain.PortFolio;
 
-import java.util.List;
-
 public class PortFolioDto {
     private String categoryName;
     private String companyName;

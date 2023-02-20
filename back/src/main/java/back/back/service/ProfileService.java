@@ -23,7 +23,9 @@ public class ProfileService {
 
     public Member addPortPolio(Long memberId, String companyName) {
         Member member = memberRepository.findById(memberId).orElse(null);
-        Company company = companyRepository.findByCompanyName(companyName).stream()
+        Company company = companyRepository
+                .findByCompanyName(companyName)
+                .stream()
                 .findFirst().orElse(null);
         company.addSubscriber();
         PortFolio portFolio = portFolioRepository.save(PortFolio.makePortPolio(company));

@@ -62,7 +62,7 @@ public class Company {
 
     private Integer interestPoint;
 
-    private Integer subscribed;
+    private Integer subscribed = 0;
 
     public void addNews(List<News> news) {
         for (News news1 : news) {
