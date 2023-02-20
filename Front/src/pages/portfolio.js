@@ -13,15 +13,18 @@ const Portfolio = () => {
   const [companies, setCompanies] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  let memberId = JSON.parse(sessionStorage.getItem("data")).id;
+
+  console.log(memberId);
+
   useEffect(() => {
-    setIsLoading(false);
     const fechData = async () => {
       setIsLoading(true);
       try {
         await axios
-          .get(`http://localhost:8080/home?categoryName=게임엔터테인먼트`)
-          .then((response) => {
-            setCompanies(response.data.simpleInfos);
+          .get(`http://localhost:8080/portfolios?memberId=${memberId}`)
+          .then((res) => {
+            setCompanies(res.data.portFolioDtos);
           });
       } catch (e) {
         console.log(e);
@@ -31,14 +34,14 @@ const Portfolio = () => {
     fechData();
   }, []);
 
-  console.log(companies);
-
   if (companies && !isLoading) {
+    console.log(companies);
     const filterTitle = companies.filter((p) => {
       return p.companyName
         .toLocaleLowerCase()
         .includes(search.toLocaleLowerCase());
     });
+
     return (
       <div>
         <PortfolioContainer>

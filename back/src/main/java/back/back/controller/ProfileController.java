@@ -33,7 +33,7 @@ public class ProfileController {
     }
 
     @GetMapping("/portfolios")
-    public MyProfileDto viewMyPortPolios(@RequestBody Long memberId) {
+    public MyProfileDto viewMyPortPolios(@RequestParam Long memberId) {
         Member member = memberService.findById(memberId);
         MyProfileDto myProfileDto = new MyProfileDto(member);
         return myProfileDto;

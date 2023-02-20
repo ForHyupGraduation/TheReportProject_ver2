@@ -47,9 +47,9 @@ const CompanyListElement = ({
       memberId: JSON.parse(sessionStorage.getItem("data")).id,
       companyName: companyName,
     };
-    console.log(data);
+
     await axios
-      .post("http://localhost:8080/add/portpolio", data, {
+      .post("http://localhost:8080/add/portfolio", JSON.stringify(data), {
         headers: {
           "Content-Type": `application/json`,
         },
@@ -63,17 +63,27 @@ const CompanyListElement = ({
     setSubscribeLoading(true);
   };
 
-  const onClick = async (e) => {
-    // await axios
-    //   .post(
-    //     "http://localhost:8080/add/portfolio",
-    //     {
-    //       memberId: JSON.parse(sessionStorage.getItem("data")).id,
-    //       companyName: { companyName },
-    //     },
-    //     null
-    //   )
-    //   .then((res) => {});
+  const unSubscribe = async (e) => {
+    console.log("unSub");
+    let data = {
+      memberId: JSON.parse(sessionStorage.getItem("data")).id,
+      companyName: companyName,
+    };
+    console.log("data");
+
+    await axios
+      .post("http://localhost:8080/remove/portfolio", JSON.stringify(data), {
+        headers: {
+          "Content-Type": `application/json`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    setSubscribeLoading(true);
   };
 
   if (Upjongpage) {
@@ -193,7 +203,7 @@ const CompanyListElement = ({
             className="btn btn-primary"
             data-bs-toggle="modal"
             data-bs-target="#staticBackdrop"
-            onClick={subscribe}
+            onClick={unSubscribe}
           >
             {subscribeLoading ? (
               <div className="spinner-border" role="status">
