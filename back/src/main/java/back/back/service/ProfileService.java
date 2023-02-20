@@ -42,7 +42,7 @@ public class ProfileService {
         Member member = memberRepository
                 .findById(memberId)
                 .orElse(null);
-        List<PortFolio> portFolios = member.getPortFolios();
+        List<PortFolio> portFolios = portFolioRepository.findByMemberId(memberId);
         portFolios.removeIf(portFolio -> portFolio.getCompanyName().equals(companyName));
         return member;
     }
