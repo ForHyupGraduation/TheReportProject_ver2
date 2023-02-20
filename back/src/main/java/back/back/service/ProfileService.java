@@ -41,7 +41,7 @@ public class ProfileService {
                 .orElse(null);
         List<PortFolio> portFolios = portFolioRepository.findByMemberId(memberId);
         for (PortFolio portFolio : portFolios) {
-            if(portFolio.getCompanyName() == companyName) {
+            if(portFolio.getCompanyName().equals(companyName)) {
                 portFolios.remove(portFolio);
             }
         }
