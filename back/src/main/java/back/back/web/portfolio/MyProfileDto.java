@@ -10,7 +10,8 @@ public class MyProfileDto {
 
     public MyProfileDto(Member member) {
         this.portFolioDtos = member.getPortFolios()
-                .stream().map(portFolio -> new PortFolioDto(portFolio))
+                .stream()
+                .map(portFolio -> new PortFolioDto(portFolio))
                 .collect(Collectors.toList());
         this.nickName = member.getNickName();
         this.email = member.getEmail();

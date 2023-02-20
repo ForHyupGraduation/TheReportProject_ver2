@@ -55,9 +55,9 @@ public class CompanyController {
     }
 
     @PostMapping("/test/add")
-    public String test(@RequestBody TestMapping test) {
+    public TestMapping test(@RequestBody TestMapping test) {
         log.info("test.id = {}", test.getId());
         log.info("test.companyName = {}", test.getCompanyName());
-        return "ok";
+        return test;
     }
 }
