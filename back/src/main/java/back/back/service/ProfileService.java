@@ -21,6 +21,7 @@ public class ProfileService {
     private final MemberRepository memberRepository;
     private final CompanyRepository companyRepository;
     private final PortFolioRepository portFolioRepository;
+
     public void test(Long memberId) {
         Member member = memberRepository.findById(memberId).orElse(null);
     }
@@ -42,8 +43,7 @@ public class ProfileService {
         Member member = memberRepository
                 .findById(memberId)
                 .orElse(null);
-        List<PortFolio> portFolios = portFolioRepository.findByMemberId(memberId);
-        portFolios.removeIf(portFolio -> portFolio.getCompanyName().equals(companyName));
+        portFolioRepository.removeByCompanyName(companyName);
         return member;
     }
 }
