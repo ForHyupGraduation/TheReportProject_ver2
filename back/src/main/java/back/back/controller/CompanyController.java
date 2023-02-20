@@ -4,9 +4,11 @@ import back.back.TestMapping;
 import back.back.crawler.BuzzInfoCrawler;
 import back.back.crawler.NewsCrawler;
 import back.back.domain.Company;
+import back.back.domain.Member;
 import back.back.domain.News;
 import back.back.request.SendRequest;
 import back.back.service.CompanyService;
+import back.back.service.ProfileService;
 import back.back.web.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +23,7 @@ import java.util.List;
 public class CompanyController {
     private final CompanyService companyService;
     private final SendRequest sendRequest;
+    private final ProfileService profileService;
 
     @GetMapping("/home")
     public HomeDto home(@RequestParam String categoryName) {
@@ -58,6 +61,7 @@ public class CompanyController {
     public TestMapping test(@RequestBody TestMapping test) {
         log.info("test.id = {}", test.getId());
         log.info("test.companyName = {}", test.getCompanyName());
+        Member member = profileService.addPortPolio(test.getId(), test.getCompanyName());
         return test;
     }
 }
