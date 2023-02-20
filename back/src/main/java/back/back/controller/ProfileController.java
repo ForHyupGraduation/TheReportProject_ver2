@@ -19,7 +19,7 @@ public class ProfileController {
     private final ProfileService profileService;
     private final MemberService memberService;
 
-    @PostMapping("/add/portfolio")
+    @PostMapping(name = "/add/portfolio", consumes = "application/json", produces = "application/json")
     public MyProfileDto addPortPolio(@RequestBody TestMapping test) {
         // 1. memberId가 넘어 오면 회원 정보를 조회한다.
         Member member = profileService.addPortPolio(test.getId(), test.getCompanyName());
