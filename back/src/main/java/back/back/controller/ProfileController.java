@@ -19,7 +19,7 @@ public class ProfileController {
     private final MemberService memberService;
 
     @PostMapping("/add/portpolio")
-    public MyProfileDto addPortPolio(@ModelAttribute PortFolioParam param) {
+    public MyProfileDto addPortPolio(@RequestBody PortFolioParam param) {
         // 1. memberId가 넘어 오면 회원 정보를 조회한다.
         Member member = profileService.addPortPolio(param.getMemberId(), param.getCompanyName());
         List<PortFolio> portFolios = member.getPortFolios();
