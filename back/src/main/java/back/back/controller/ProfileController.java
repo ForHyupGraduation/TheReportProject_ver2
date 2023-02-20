@@ -32,9 +32,9 @@ public class ProfileController {
         return "ok";
     }
 
-    @PostMapping("/portfolios")
-    public MyProfileDto viewMyPortPolios(@RequestBody PortFolioParam param) {
-        Member member = memberService.findById(param.getMemberId());
+    @GetMapping("/portfolios")
+    public MyProfileDto viewMyPortPolios(@RequestBody Long memberId) {
+        Member member = memberService.findById(memberId);
         MyProfileDto myProfileDto = new MyProfileDto(member);
         return myProfileDto;
     }
