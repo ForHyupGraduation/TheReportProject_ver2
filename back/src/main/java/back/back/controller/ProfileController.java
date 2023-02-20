@@ -20,15 +20,17 @@ public class ProfileController {
     private final MemberService memberService;
 
     @PostMapping("/add/portfolio")
-    public MyProfileDto addPortPolio(@RequestBody TestMapping test) {
-        Member member = profileService.addPortPolio(test.getId(), test.getCompanyName());
+    public MyProfileDto addPortPolio(@RequestBody PortFolioParam param) {
+        Member member = profileService.addPortPolio(param.getMemberId(), param.getCompanyName());
         List<PortFolio> portFolios = member.getPortFolios();
         MyProfileDto myProfileDto = new MyProfileDto(member);
         return myProfileDto;
     }
 
     @PostMapping("/remove/portfolio")
-    public String removePortPolio(@RequestBody Long memberId) {
+    public String removePortPolio(@RequestBody PortFolioParam param) {
+        Member member = profileService.removePortPolio(param.getMemberId(), param.getCompanyName());
+
         return "ok";
     }
 }

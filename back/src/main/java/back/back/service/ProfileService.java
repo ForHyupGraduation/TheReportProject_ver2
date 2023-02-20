@@ -33,4 +33,11 @@ public class ProfileService {
         member.addPortFolios(portFolio);
         return member;
     }
+
+    public Member removePortPolio(Long memberId, String companyName) {
+        Member member = memberRepository.findById(memberId)
+                .orElse(null);
+        member.getPortFolios().remove(companyName);
+        return member;
+    }
 }
