@@ -61,7 +61,7 @@ public class Company {
 
     private Integer interestPoint;
 
-    private Integer subscribed = Integer.valueOf(0);
+    private Integer subscribed;
 
     public void addNews(List<News> news) {
         for (News news1 : news) {
@@ -85,7 +85,10 @@ public class Company {
     }
 
     public void addSubscriber() {
-        this.subscribed = Integer.valueOf(this.subscribed.intValue() + 1);
+        if(this.subscribed == null) {
+            this.subscribed = Integer.valueOf( 0);
+        }
+        this.subscribed += 1;
     }
 
     public void removeSubscriber() {

@@ -20,9 +20,10 @@ public class UtilsTest {
 
     @Test
     void hashTest() {
-        String ap = "ch123456";
-        String hash = HashPassword.getHash(ap);
-        System.out.println(hash.equals("08667b0b6ceeb6899d5ed2d24716d13f44ea4a2648cb5beb948cd106597a6533"));
+        Integer inte = 1;
+        Integer iter = inte + 1;
+        System.out.println(inte + 1);
+        System.out.println(iter);
     }
 
     static class HashPassword {
