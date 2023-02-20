@@ -86,7 +86,7 @@ public class Company {
     }
 
     public void addSubscriber() {
-        subscribed += 1;
+        this.subscribed += subscribed.intValue() + 1;
     }
 
     public void removeSubscriber() {
