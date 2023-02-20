@@ -6,10 +6,12 @@ import back.back.crawler.NewsCrawler;
 import back.back.domain.Company;
 import back.back.domain.Member;
 import back.back.domain.News;
+import back.back.domain.PortFolio;
 import back.back.request.SendRequest;
 import back.back.service.CompanyService;
 import back.back.service.ProfileService;
 import back.back.web.*;
+import back.back.web.portfolio.MyProfileDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -62,6 +64,8 @@ public class CompanyController {
         log.info("test.id = {}", test.getId());
         log.info("test.companyName = {}", test.getCompanyName());
         Member member = profileService.addPortPolio(test.getId(), test.getCompanyName());
+        List<PortFolio> portFolios = member.getPortFolios();
+        MyProfileDto myProfileDto = new MyProfileDto(member);
         return test;
     }
 }
