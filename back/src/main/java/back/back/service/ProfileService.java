@@ -43,7 +43,7 @@ public class ProfileService {
         Member member = memberRepository
                 .findById(memberId)
                 .orElse(null);
-        portFolioRepository.removeByCompanyName(companyName);
+        portFolioRepository.deleteByCompanyName(companyName);
         return member;
     }
 }

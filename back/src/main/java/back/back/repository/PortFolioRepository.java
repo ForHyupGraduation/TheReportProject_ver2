@@ -9,6 +9,5 @@ import java.util.List;
 
 public interface PortFolioRepository extends JpaRepository<PortFolio, Long> {
     List<PortFolio> findByMemberId(Long MemberId);
-    @Query("delete from PortFolio p where p.companyName = :companyName")
-    List<PortFolio> removeByCompanyName(@Param("companyName") String companyName);
+    List<PortFolio> deleteByCompanyName(String companyName);
 }
