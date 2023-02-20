@@ -69,6 +69,7 @@ public class CompanyController {
             log.info("port = {}", portFolio);
         }
         MyProfileDto myProfileDto = new MyProfileDto(member);
+
         return myProfileDto;
     }
 }

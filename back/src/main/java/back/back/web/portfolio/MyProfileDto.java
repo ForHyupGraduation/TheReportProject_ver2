@@ -1,8 +1,13 @@
 package back.back.web.portfolio;
 import back.back.domain.Member;
+
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Getter
+@Setter
 public class MyProfileDto {
     private List<PortFolioDto> portFolioDtos;
     private String nickName;

@@ -4,12 +4,14 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 
 @Entity
 @Setter @Getter
 @NoArgsConstructor
+@ToString(of = {"companyName", "interestPoint"})
 public class PortFolio {
     @Id
     @GeneratedValue
