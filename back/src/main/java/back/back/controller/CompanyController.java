@@ -58,18 +58,4 @@ public class CompanyController {
         sendRequest.sendRequest();
         return "ok";
     }
-
-    @PostMapping("/test/add")
-    public MyProfileDto test(@RequestBody TestMapping test) {
-        log.info("test.id = {}", test.getId());
-        log.info("test.companyName = {}", test.getCompanyName());
-        Member member = profileService.addPortPolio(test.getId(), test.getCompanyName());
-        List<PortFolio> portFolios = member.getPortFolios();
-        for (PortFolio portFolio : portFolios) {
-            log.info("port = {}", portFolio);
-        }
-        MyProfileDto myProfileDto = new MyProfileDto(member);
-
-        return myProfileDto;
-    }
 }

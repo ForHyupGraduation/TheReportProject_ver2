@@ -22,7 +22,6 @@ public class ProfileController {
     @PostMapping("/add/portfolio")
     public MyProfileDto addPortPolio(@RequestBody PortFolioParam param) {
         Member member = profileService.addPortPolio(param.getMemberId(), param.getCompanyName());
-        List<PortFolio> portFolios = member.getPortFolios();
         MyProfileDto myProfileDto = new MyProfileDto(member);
         return myProfileDto;
     }
@@ -30,7 +29,14 @@ public class ProfileController {
     @PostMapping("/remove/portfolio")
     public String removePortPolio(@RequestBody PortFolioParam param) {
         Member member = profileService.removePortPolio(param.getMemberId(), param.getCompanyName());
-
         return "ok";
     }
+
+    @PostMapping("/portfolios")
+    public MyProfileDto viewMyPortPolios(@RequestBody PortFolioParam param) {
+        Member member = memberService.findById(param.getMemberId());
+        MyProfileDto myProfileDto = new MyProfileDto(member);
+        return myProfileDto;
+    }
+
 }
