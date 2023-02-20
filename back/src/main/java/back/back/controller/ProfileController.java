@@ -30,7 +30,6 @@ public class ProfileController {
     @PostMapping("/remove/portfolio")
     public String removePortPolio(@RequestBody PortFolioParam param) {
         Member member = profileService.removePortPolio(param.getMemberId(), param.getCompanyName());
-
         return "ok";
     }
 }

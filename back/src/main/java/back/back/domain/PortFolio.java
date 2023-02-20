@@ -34,7 +34,6 @@ public class PortFolio {
     @JoinColumn(name = "member_id")
     private Member member;
 
-
     public static PortFolio makePortPolio(Company company) {
         return new PortFolio(company.getCategoryName(),
                 company.getCompanyName(), 20);
