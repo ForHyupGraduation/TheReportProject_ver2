@@ -18,7 +18,7 @@ public class BackApplication implements WebMvcConfigurer {
 		registry.addMapping("/**")
 				.allowedMethods("GET", "POST")
 				.allowedOrigins("http://localhost:3000")
-				.allowedHeaders("*")
+				.allowedHeaders("*/*")
 				.allowCredentials(true);
 	}
 }
