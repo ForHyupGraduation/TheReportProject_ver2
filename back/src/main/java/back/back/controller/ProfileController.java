@@ -1,5 +1,6 @@
 package back.back.controller;
 
+import back.back.TestMapping;
 import back.back.domain.Member;
 import back.back.domain.PortFolio;
 import back.back.service.MemberService;
@@ -19,15 +20,15 @@ public class ProfileController {
     private final MemberService memberService;
 
     @PostMapping("/add/portfolio")
-    public MyProfileDto addPortPolio(@RequestBody PortFolioParam param) {
+    public MyProfileDto addPortPolio(@RequestBody TestMapping test) {
         // 1. memberId가 넘어 오면 회원 정보를 조회한다.
-        Member member = profileService.addPortPolio(param.getMemberId(), param.getCompanyName());
+        Member member = profileService.addPortPolio(test.getId(), test.getCompanyName());
         List<PortFolio> portFolios = member.getPortFolios();
         MyProfileDto myProfileDto = new MyProfileDto(member);
         return myProfileDto;
     }
 
-    @PostMapping("/remove/portpolio")
+    @PostMapping("/remove/portfolio")
     public String removePortPolio(@RequestBody Long memberId) {
         return "ok";
     }
