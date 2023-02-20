@@ -1,11 +1,10 @@
 package back.back.web.portfolio;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
-@Getter
-
+@Data
 public class PortFolioParam {
     private Long memberId;
     private String companyName;
