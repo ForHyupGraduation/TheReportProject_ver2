@@ -13,33 +13,66 @@ const CompanyListElement = ({
   interestPoint,
   eventKey,
   companyName,
-  page,
+  Upjongpage,
   loggedIn,
+  portfolioPage,
 }) => {
   const [like, setLike] = useState(false);
   const [isLoading, setIsLoading] = useState();
+  const [subscribeLoading, setSubscribeLoading] = useState();
 
-  // useEffect(() => {
-  //   const fechData = async () => {
-  //     setIsLoading(true);
-  //     try {
-  //       await axios.get(``).then((res) => {});
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //     setIsLoading(false);
-  //   };
-  //   fechData();
-  // }, []);
+  useEffect(() => {
+    // const fechData = async () => {
+    //   setIsLoading(true);
+    //   try {
+    //     await axios.get(``).then((res) => {});
+    //   } catch (e) {
+    //     console.log(e);
+    //   }
+    //   setIsLoading(false);
+    // };
+    // fechData();
+    if (!subscribeLoading) {
+      return;
+    }
+  }, [subscribeLoading]);
 
   const toggleLike = async (e) => {
     // const res = await axios.post(``);컴퍼니 네임 전달?
     setLike(!like);
   };
-  if (loggedIn) {
-    console.log(loggedIn);
+
+  const subscribe = (e) => {
+    // await axios
+    //   .post(
+    //     "http://localhost:8080/add/portfolio",
+    //     {
+    //       memberId: JSON.parse(sessionStorage.getItem("data")).id,
+    //       companyName: { companyName },
+    //     },
+    //     null
+    //   )
+    //   .then((res) => {});
+    setSubscribeLoading(true);
+  };
+
+  const onClick = async (e) => {
+    // await axios
+    //   .post(
+    //     "http://localhost:8080/add/portfolio",
+    //     {
+    //       memberId: JSON.parse(sessionStorage.getItem("data")).id,
+    //       companyName: { companyName },
+    //     },
+    //     null
+    //   )
+    //   .then((res) => {});
+  };
+
+  if (Upjongpage) {
     return (
       <tr>
+        <th scope="row">{eventKey + 1}</th>
         <td>{companyName}</td>
         <td>{interestPoint}%</td>
         <td>{growthPoint}%</td>
@@ -49,19 +82,89 @@ const CompanyListElement = ({
               pathname: `/company/${companyName}`,
             }}
           >
-            <Badge>자세히 보기</Badge>
+            <span>
+              <Badge>자세히보기</Badge>
+            </span>
           </Link>
         </td>
         <td>
-          <SubsribeButton like={like} onClick={toggleLike} />
+          {/* <SubsribeButton like={like} onClick={toggleLike} /> */}
+          <button
+            type="button"
+            className="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"
+            onClick={subscribe}
+          >
+            {subscribeLoading ? (
+              <div className="spinner-border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            ) : (
+              `구독하기`
+            )}
+          </button>
+          <div
+            className="modal fade"
+            id="staticBackdrop"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            tabIndex="-1"
+            aria-labelledby="staticBackdropLabel"
+            aria-hidden="true"
+          >
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h1 className="modal-title fs-5" id="staticBackdropLabel">
+                    선택하신 기업 구독이 완료되었습니다.
+                  </h1>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div className="modal-body">
+                  포트폴리오 기능 중 알람을 설정하여 원하는 떄에 이메일을 받을
+                  수 있습니다.
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                    onClick={() => {
+                      setSubscribeLoading(false);
+                    }}
+                  >
+                    Close
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={() => {
+                      setSubscribeLoading(false);
+                      window.location.reload();
+                    }}
+                    data-bs-dismiss="modal"
+                  >
+                    Understood
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </td>
       </tr>
     );
   }
 
-  if (page) {
+  if (portfolioPage) {
     return (
       <tr>
+        <th scope="row">{eventKey + 1}</th>
         <td>{companyName}</td>
         <td>{interestPoint}%</td>
         <td>{growthPoint}%</td>
@@ -71,15 +174,87 @@ const CompanyListElement = ({
               pathname: `/company/${companyName}`,
             }}
           >
-            <Badge style={{ fontSize: "0.5rem" }}>GO</Badge>
+            <span>
+              <Badge>자세히보기</Badge>
+            </span>
           </Link>
+        </td>
+        <td>
+          {/* <SubsribeButton like={like} onClick={toggleLike} /> */}
+          <button
+            type="button"
+            className="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"
+            onClick={subscribe}
+          >
+            {subscribeLoading ? (
+              <div className="spinner-border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            ) : (
+              `구독취소하기`
+            )}
+          </button>
+          <div
+            className="modal fade"
+            id="staticBackdrop"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            tabIndex="-1"
+            aria-labelledby="staticBackdropLabel"
+            aria-hidden="true"
+          >
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h1 className="modal-title fs-5" id="staticBackdropLabel">
+                    선택하신 기업 구독 취소 되었습니다.
+                  </h1>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div className="modal-body">
+                  원하실 경우 다시 구독 설정하여 원하는 떄에 이메일을 받을 수
+                  있습니다.
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                    onClick={() => {
+                      setSubscribeLoading(false);
+                    }}
+                  >
+                    Close
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={() => {
+                      setSubscribeLoading(false);
+                      window.location.reload();
+                    }}
+                    data-bs-dismiss="modal"
+                  >
+                    Understood
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </td>
       </tr>
     );
   }
+
   return (
     <tr>
-      <th scope="row">{eventKey + 1}</th>
       <td>{companyName}</td>
       <td>{interestPoint}%</td>
       <td>{growthPoint}%</td>
@@ -89,10 +264,11 @@ const CompanyListElement = ({
             pathname: `/company/${companyName}`,
           }}
         >
-          <Badge>자세히 보기</Badge>
+          <span>
+            <Badge style={{ fontSize: "0.5rem" }}>GO</Badge>
+          </span>
         </Link>
       </td>
-      <td>sad</td>
     </tr>
   );
 };
