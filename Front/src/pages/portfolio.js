@@ -49,8 +49,16 @@ const Portfolio = () => {
                 <i className="fa-solid fa-magnifying-glass"></i>
               </button>
             </SearchContainer>
+            <AlarmContainer>
+              <i class="fa-2x fa-solid fa-bell"></i>
+              <i class="fa-2x fa-solid fa-bell-slash"></i>
+            </AlarmContainer>
             <TagContainer>태그란</TagContainer>
-            <CompanyList companies={filterTitle} upjongNumber={263} />
+            <CompanyList
+              companies={filterTitle}
+              upjongNumber={263}
+              portfolioPage={true}
+            />
           </PortfolioForm>
         </PortfolioContainer>
       </div>
@@ -72,9 +80,9 @@ const PortfolioContainer = styled.div`
 
 const SearchContainer = styled.div`
   display: flex;
-  justify-content: right;
-  flex-direction: row;
-  padding: 40px;
+  justify-content: flex-end;
+  margin-bottom: 40px;
+  border: solid 1px;
 `;
 
 const PortfolioForm = styled.div`
@@ -83,6 +91,7 @@ const PortfolioForm = styled.div`
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  border: solid 1px;
 `;
 
 const TagContainer = styled.div`
@@ -91,4 +100,11 @@ const TagContainer = styled.div`
   height: 40px;
   border: solid 1px;
   margin-bottom: 40px;
+`;
+
+const AlarmContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 30px;
+  border: solid 1px;
 `;

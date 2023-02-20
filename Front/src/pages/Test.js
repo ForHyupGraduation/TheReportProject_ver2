@@ -39,40 +39,53 @@ const Test = () => {
   //   console.log(testData);
   return (
     <>
-      <ProfileContainer>
-        <ProfileForm>
-          <ProfileHeader>
-            <img
-              className="profile__background"
-              src="https://w.namu.la/s/a585247b088ef3ae11d8a649817d1a7c798391317581940983d9fabf3528421f3c4f949d0c82f195f4f4e5a09291e38d506e06ff96c9dfdbb70a99c256615ca55b5e2a7287e4b4a1e4468028095cf7533f63676eeda527eb0e0c5fbadbc012d55b86f7b8fb8ed59a4ce3ab8535045f88"
-              alt="Profile Img"
-            />
-            <ProfileMain>
-              <img
-                className="profile__Img"
-                src="https://w.namu.la/s/369f2dff95928b30bb3745788067fef8047aa55fcab39c864f6bf4e70f01619e1d9d8d7f3b56b8ea88b34a64d30814f2cab69c3210338923636d8faf0e7aa4dec0276bdf943b4c5b701eebda05d16a40299dffbf80c709f98da3fa0dbc56fd76"
-                alt="profile Img"
-              />
-              <ProfileText>닉네임 : 류으미</ProfileText>
-            </ProfileMain>
-          </ProfileHeader>
-          <ProfileSubContainer1>
-            <div className="album py-5">
-              <div className="container">
-                <CompanyCards />
-              </div>
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
+      >
+        Launch static backdrop modal
+      </button>
+
+      <div
+        class="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                Modal title
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
             </div>
-          </ProfileSubContainer1>
-          <ProfileSubContainer2>
-            <CompanyRatio>
-              <DoughnutChart />
-            </CompanyRatio>
-            <Description>
-              <RatioDescription />
-            </Description>
-          </ProfileSubContainer2>
-        </ProfileForm>
-      </ProfileContainer>
+            <div class="modal-body">...</div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" class="btn btn-primary">
+                Understood
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

@@ -72,7 +72,11 @@ const Upjong = () => {
           </div>
         </section>
         <div>
-          <CompanyList companies={companies} upjongNumber={upjongNumber} />
+          <CompanyList
+            companies={companies}
+            upjongNumber={upjongNumber}
+            Upjongpage={true}
+          />
         </div>
       </div>
     );

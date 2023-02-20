@@ -1,0 +1,215 @@
+{
+  "categoryName": "게임엔터테인먼트",
+  "simpleInfos": [
+    {
+      "companyName": "밸로프",
+      "growthPoint": 100,
+      "interestPoint": 1,
+      "salesGrowthRate": 0.21,
+      "operatingProfitGrowthRate": 0.91
+    },
+    {
+      "companyName": "위메이드플레이",
+      "growthPoint": 100,
+      "interestPoint": 3,
+      "salesGrowthRate": 0.19,
+      "operatingProfitGrowthRate": 1.0
+    },
+    {
+      "companyName": "미스터블루",
+      "growthPoint": 100,
+      "interestPoint": 0,
+      "salesGrowthRate": 0.16,
+      "operatingProfitGrowthRate": 0.93
+    },
+    {
+      "companyName": "티쓰리",
+      "growthPoint": 100,
+      "interestPoint": 0,
+      "salesGrowthRate": 0.24,
+      "operatingProfitGrowthRate": 0.97
+    },
+    {
+      "companyName": "위메이드맥스",
+      "growthPoint": 100,
+      "interestPoint": 14,
+      "salesGrowthRate": 0.18,
+      "operatingProfitGrowthRate": 0.91
+    },
+    {
+      "companyName": "한빛소프트",
+      "growthPoint": 100,
+      "interestPoint": 17,
+      "salesGrowthRate": 0.22,
+      "operatingProfitGrowthRate": 0.99
+    },
+    {
+      "companyName": "크래프톤",
+      "growthPoint": 100,
+      "interestPoint": 28,
+      "salesGrowthRate": 0.22,
+      "operatingProfitGrowthRate": 0.95
+    },
+    {
+      "companyName": "미투젠",
+      "growthPoint": 100,
+      "interestPoint": 0,
+      "salesGrowthRate": 0.15,
+      "operatingProfitGrowthRate": 0.94
+    },
+    {
+      "companyName": "카카오게임즈",
+      "growthPoint": 100,
+      "interestPoint": 8,
+      "salesGrowthRate": 0.32,
+      "operatingProfitGrowthRate": 0.97
+    },
+    {
+      "companyName": "위메이드",
+      "growthPoint": 100,
+      "interestPoint": 100,
+      "salesGrowthRate": 0.39,
+      "operatingProfitGrowthRate": 0.82
+    },
+    {
+      "companyName": "액션스퀘어",
+      "growthPoint": 100,
+      "interestPoint": 9,
+      "salesGrowthRate": 0.15,
+      "operatingProfitGrowthRate": 0.98
+    },
+    {
+      "companyName": "컴투스홀딩스",
+      "growthPoint": 100,
+      "interestPoint": 9,
+      "salesGrowthRate": 0.15,
+      "operatingProfitGrowthRate": 0.91
+    },
+    {
+      "companyName": "스카이문스테크놀로지",
+      "growthPoint": 100,
+      "interestPoint": 0,
+      "salesGrowthRate": 0.63,
+      "operatingProfitGrowthRate": 0.89
+    },
+    {
+      "companyName": "베스파",
+      "growthPoint": 100,
+      "interestPoint": 0,
+      "salesGrowthRate": 0.04,
+      "operatingProfitGrowthRate": 1.0
+    },
+    {
+      "companyName": "코원플레이",
+      "growthPoint": 100,
+      "interestPoint": 0,
+      "salesGrowthRate": 0.03,
+      "operatingProfitGrowthRate": 0.63
+    },
+    {
+      "companyName": "썸에이지",
+      "growthPoint": 100,
+      "interestPoint": 2,
+      "salesGrowthRate": 1.0,
+      "operatingProfitGrowthRate": 0.92
+    },
+    {
+      "companyName": "네오위즈홀딩스",
+      "growthPoint": 100,
+      "interestPoint": 2,
+      "salesGrowthRate": 0.16,
+      "operatingProfitGrowthRate": 0.95
+    },
+    {
+      "companyName": "펄어비스",
+      "growthPoint": 100,
+      "interestPoint": 17,
+      "salesGrowthRate": 0.12,
+      "operatingProfitGrowthRate": 0.93
+    },
+    {
+      "companyName": "더블유게임즈",
+      "growthPoint": 100,
+      "interestPoint": 4,
+      "salesGrowthRate": 0.18,
+      "operatingProfitGrowthRate": 0.94
+    },
+    {
+      "companyName": "웹젠",
+      "growthPoint": 100,
+      "interestPoint": 5,
+      "salesGrowthRate": 0.21,
+      "operatingProfitGrowthRate": 0.95
+    },
+    {
+      "companyName": "엠게임",
+      "growthPoint": 100,
+      "interestPoint": 3,
+      "salesGrowthRate": 0.23,
+      "operatingProfitGrowthRate": 0.96
+    },
+    {
+      "companyName": "넷마블",
+      "growthPoint": 100,
+      "interestPoint": 14,
+      "salesGrowthRate": 0.18,
+      "operatingProfitGrowthRate": 0.92
+    },
+    {
+      "companyName": "미투온",
+      "growthPoint": 100,
+      "interestPoint": 0,
+      "salesGrowthRate": 0.15,
+      "operatingProfitGrowthRate": 0.94
+    },
+    {
+      "companyName": "데브시스터즈",
+      "growthPoint": 100,
+      "interestPoint": 5,
+      "salesGrowthRate": 0.67,
+      "operatingProfitGrowthRate": 0.8
+    },
+    {
+      "companyName": "컴투스",
+      "growthPoint": 100,
+      "interestPoint": 10,
+      "salesGrowthRate": 0.2,
+      "operatingProfitGrowthRate": 0.92
+    },
+    {
+      "companyName": "조이시티",
+      "growthPoint": 100,
+      "interestPoint": 9,
+      "salesGrowthRate": 0.22,
+      "operatingProfitGrowthRate": 0.95
+    },
+    {
+      "companyName": "룽투코리아",
+      "growthPoint": 100,
+      "interestPoint": 3,
+      "salesGrowthRate": 0.23,
+      "operatingProfitGrowthRate": 1.0
+    },
+    {
+      "companyName": "플레이위드",
+      "growthPoint": 100,
+      "interestPoint": 1,
+      "salesGrowthRate": 1.0,
+      "operatingProfitGrowthRate": 0.92
+    },
+    {
+      "companyName": "모비릭스",
+      "growthPoint": 100,
+      "interestPoint": 5,
+      "salesGrowthRate": 0.22,
+      "operatingProfitGrowthRate": 0.95
+    },
+    {
+      "companyName": "네오위즈",
+      "growthPoint": 100,
+      "interestPoint": 19,
+      "salesGrowthRate": 0.17,
+      "operatingProfitGrowthRate": 0.94
+    }
+  ]
+}

@@ -2,44 +2,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import CompanyListElement from "./CompanyListElement";
 
-const CompanyList = ({ companies, page }) => {
+const CompanyList = ({ companies, Upjongpage, portfolioPage }) => {
   const [like, setLike] = useState(false);
   const [isLoading, setIsLoading] = useState();
   const [loggedIn, setLoggedIn] = useState(true);
 
-  if (page) {
-    console.log("로그드인1");
-
-    return (
-      <div>
-        <table className="table table-striped">
-          <thead>
-            <tr style={{ fontSize: "0.8rem", fontWeight: "bold" }}>
-              <th scope="col">회사이름</th>
-              <th scope="col">대중성</th>
-              <th scope="col">성장성</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody style={{ fontSize: "0.8rem" }}>
-            {companies.map((company, index) => {
-              return (
-                <CompanyListElement
-                  key={index}
-                  interestPoint={company.interestPoint}
-                  growthPoint={company.growthPoint}
-                  companyName={company.companyName}
-                  eventKey={index}
-                  page={page}
-                />
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-    );
-  } else if (loggedIn) {
-    console.log("로그드인2");
+  if (Upjongpage) {
     return (
       <div>
         <table className="table table-striped">
@@ -61,7 +29,7 @@ const CompanyList = ({ companies, page }) => {
                   growthPoint={company.growthPoint}
                   companyName={company.companyName}
                   eventKey={index}
-                  loggedIn={loggedIn}
+                  Upjongpage={Upjongpage}
                 />
               );
             })}
@@ -70,21 +38,49 @@ const CompanyList = ({ companies, page }) => {
       </div>
     );
   }
-  console.log("로그드인");
-
+  if (portfolioPage) {
+    return (
+      <div>
+        <table className="table table-striped">
+          <thead>
+            <tr style={{ fontSize: "0.8rem", fontWeight: "bold" }}>
+              <th scope="col">#</th>
+              <th scope="col">회사이름</th>
+              <th scope="col">대중성</th>
+              <th scope="col">성장성</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody style={{ fontSize: "0.8rem" }}>
+            {companies.map((company, index) => {
+              return (
+                <CompanyListElement
+                  key={index}
+                  interestPoint={company.interestPoint}
+                  growthPoint={company.growthPoint}
+                  companyName={company.companyName}
+                  eventKey={index}
+                  portfolioPage={portfolioPage}
+                />
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    );
+  }
   return (
     <div>
       <table className="table table-striped">
         <thead>
-          <tr>
-            <th scope="col">#</th>
+          <tr style={{ fontSize: "0.8rem", fontWeight: "bold" }}>
             <th scope="col">회사이름</th>
             <th scope="col">대중성</th>
             <th scope="col">성장성</th>
             <th scope="col"></th>
           </tr>
         </thead>
-        <tbody>
+        <tbody style={{ fontSize: "0.8rem" }}>
           {companies.map((company, index) => {
             return (
               <CompanyListElement
@@ -93,7 +89,7 @@ const CompanyList = ({ companies, page }) => {
                 growthPoint={company.growthPoint}
                 companyName={company.companyName}
                 eventKey={index}
-                page={page}
+                loggedIn={loggedIn}
               />
             );
           })}
@@ -101,6 +97,37 @@ const CompanyList = ({ companies, page }) => {
       </table>
     </div>
   );
+
+  // return (
+  //   <div>
+  //     <table className="table table-striped">
+  //       <thead>
+  //         <tr>
+  //           <th scope="col">#</th>
+  //           <th scope="col">회사이름</th>
+  //           <th scope="col">대중성</th>
+  //           <th scope="col">성장성</th>
+  //           <th scope="col"></th>
+  //           <th scope="col">구독하기</th>
+  //         </tr>
+  //       </thead>
+  //       <tbody>
+  //         {companies.map((company, index) => {
+  //           return (
+  //             <CompanyListElement
+  //               key={index}
+  //               interestPoint={company.interestPoint}
+  //               growthPoint={company.growthPoint}
+  //               companyName={company.companyName}
+  //               eventKey={index}
+  //               Upjongpage={Upjongpage}
+  //             />
+  //           );
+  //         })}
+  //       </tbody>
+  //     </table>
+  //   </div>
+  // );
 };
 
 export default CompanyList;

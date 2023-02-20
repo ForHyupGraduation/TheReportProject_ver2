@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
 const NavBar = () => {
   const logOut = () => {
     sessionStorage.clear();
@@ -26,31 +25,42 @@ const NavBar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarText">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <a className="nav-link" href="/about">
-              About
-            </a>
-            <li className="nav-item"></li>
+            <li className="nav-item">
+              <a className="nav-link" href="/about">
+                About
+              </a>
+            </li>
+            <li className="nav-item">
+              {sessionStorage.getItem("data") ? (
+                <a
+                  className="nav-link"
+                  href={`/portfolio/${
+                    JSON.parse(sessionStorage.getItem("data")).id
+                  }`}
+                >
+                  MyPortfolio
+                </a>
+              ) : (
+                <a className="nav-link" href="/login">
+                  MyPortfolio
+                </a>
+              )}
+            </li>
           </ul>
           <ul className="navbar-nav ml-auto">
             {sessionStorage.getItem("data") ? (
               <li className="nav-item">
-                <Link
-                  to={{
-                    pathname: `/profile/${
-                      JSON.parse(sessionStorage.getItem("data")).nickName
-                    }`,
-                  }}
-                  style={{
-                    textDecoration: "none",
-                    color: "black",
-                    alignContent: "center",
-                  }}
+                <a
+                  className="nav-link"
+                  href={`/profile/${
+                    JSON.parse(sessionStorage.getItem("data")).id
+                  }`}
                 >
-                  <i className="fa-solid fa-circle-user fa-2x"></i>{" "}
-                </Link>
-                <button style={{ alignContent: "center" }} onClick={logOut}>
-                  <i className="fa-solid fa-right-from-bracket"></i>
-                </button>
+                  <i className="fa-solid fa-circle-user fa-2x"></i>
+                  <a style={{ alignContent: "center" }} onClick={logOut}>
+                    <i className="fa-solid fa-right-from-bracket"></i>
+                  </a>
+                </a>
               </li>
             ) : (
               <li className="nav-item">

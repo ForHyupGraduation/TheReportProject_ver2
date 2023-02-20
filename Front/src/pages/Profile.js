@@ -8,6 +8,9 @@ import DoughnutChart from "../components/Graphs/DoughnutChart";
 import RatioDescription from "../components/RatioDescription/RatioDescription";
 
 const Profile = () => {
+  const [member_id, setMember_id] = useState();
+  const [subscribed, setSubscribed] = useState();
+
   return (
     <>
       <ProfileContainer>
@@ -24,9 +27,9 @@ const Profile = () => {
                 src="https://w.namu.la/s/369f2dff95928b30bb3745788067fef8047aa55fcab39c864f6bf4e70f01619e1d9d8d7f3b56b8ea88b34a64d30814f2cab69c3210338923636d8faf0e7aa4dec0276bdf943b4c5b701eebda05d16a40299dffbf80c709f98da3fa0dbc56fd76"
                 alt="profile Img"
               />
-              <ProfileText>닉네임 : 류으미</ProfileText>
+              <ProfileText>닉네임 : nickName</ProfileText>
             </ProfileMain>
-          </ProfileHeader>{" "}
+          </ProfileHeader>
           <SubTitle>보유 업종 중 구독수 1~3위</SubTitle>
           <ProfileSubContainer1>
             <div className="album py-5">
