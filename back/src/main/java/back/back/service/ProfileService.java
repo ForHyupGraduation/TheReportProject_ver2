@@ -43,9 +43,7 @@ public class ProfileService {
                 .findById(memberId)
                 .orElse(null);
         List<PortFolio> portFolios = member.getPortFolios();
-        for (PortFolio portFolio : portFolios) {
-            log.info("portFolio {}", portFolio);
-        }
+        portFolios.removeIf(portFolio -> portFolio.getCompanyName().equals(companyName));
         return member;
     }
 }
