@@ -50,6 +50,12 @@ public class ProfileService {
         Member member = memberRepository
                 .findById(memberId)
                 .orElse(null);
+        Company company = companyRepository
+                .findByCompanyName(companyName)
+                .stream()
+                .findFirst()
+                .orElse(null);
+        company.removeSubscriber();
         portFolioRepository.deleteByCompanyName(companyName);
         return member;
     }
@@ -79,13 +85,7 @@ public class ProfileService {
         //companyName 이랑 일치하는 회사 내용을 전달
         List<CompanySimpleDto> companySimpleDto = companyRepository.findAll()
                 .stream()
-                .filter(company -> {
-                    boolean b = false;
-                    for (String s : collect) {
-                        b = s.equals(company.getCompanyName());
-                    }
-                    return b;
-                })
+                .filter(company -> collect.contains(company.getCompanyName()))
                 .sorted((c1, c2) -> c2.getSubscribed() - c1.getSubscribed())
                 .map(company -> new CompanySimpleDto(company))
                 .limit(3)
