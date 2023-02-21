@@ -1,8 +1,7 @@
 .circular-progress {
   position: relative;
-  height: 300px;
-  width: 300px;
-  background-color: orange;
+  width: 20vw;
+  height: 20vw;
   border-radius: 50%;
   display: grid;
   place-items: center;
@@ -12,8 +11,8 @@
 .circular-progress:before {
   content: "";
   position: absolute;
-  height: 60%;
-  width: 60%;
+  height: 70%;
+  width: 70%;
   background-color: #ffffff;
   border-radius: 50%;
   box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.3) inset;

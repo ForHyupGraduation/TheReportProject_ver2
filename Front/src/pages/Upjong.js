@@ -13,20 +13,38 @@ const Upjong = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [upjong, setUpjong] = useState(0);
   const [upjongNumber, setUpjongNumber] = useState(null);
+  const [subscribedCompany, setSubscribedCompany] = useState(null);
 
   const location = useLocation();
   const title = location.state?.title; // 추가된 부분
+  let memberId = null;
+  if (sessionStorage.getItem("data")) {
+    memberId = JSON.parse(sessionStorage.getItem("data")).id;
+  }
 
   useEffect(() => {
     setIsLoading(false);
     const fechData = async () => {
       setIsLoading(true);
       try {
-        await axios
-          .get(`http://localhost:8080/home?categoryName=${title}`)
-          .then((response) => {
-            setCompanies(response.data.simpleInfos);
-          });
+        if (memberId) {
+          await axios
+            .get(
+              `http://localhost:8080/home?categoryName=${title}&memberId=${memberId}`
+            )
+            .then((res) => {
+              console.log("로그인된 페이지");
+              setSubscribedCompany(res.data.portFolioDtos);
+              setCompanies(res.data.simpleInfos);
+            });
+        } else {
+          await axios
+            .get(`http://localhost:8080/home?categoryName=${title}`)
+            .then((response) => {
+              console.log("로그인x 페이지");
+              setCompanies(response.data.simpleInfos);
+            });
+        }
       } catch (e) {
         console.log(e);
       }
@@ -45,13 +63,13 @@ const Upjong = () => {
     return <LoadingPage />;
   } else if (!isLoading && companies) {
     console.log(companies);
+
     return (
       <div className="container">
         <section className="py-5 text-center container">
           <div className="row py-lg-5">
             <div className="col-lg-6 col-md-8 mx-auto">
               <h1 className="fw-light">{upjong} 산업</h1>
-
               <ScatterChart
                 labels={companies.map((company) => company.companyName)}
                 data={companies.map((company) => ({
@@ -72,11 +90,20 @@ const Upjong = () => {
           </div>
         </section>
         <div>
-          <CompanyList
-            companies={companies}
-            upjongNumber={upjongNumber}
-            Upjongpage={true}
-          />
+          {memberId ? (
+            <CompanyList
+              companies={companies}
+              upjongNumber={upjongNumber}
+              Upjongpage={true}
+              subscribedCompany={subscribedCompany}
+            />
+          ) : (
+            <CompanyList
+              companies={companies}
+              upjongNumber={upjongNumber}
+              Upjongpage={true}
+            />
+          )}
         </div>
       </div>
     );

@@ -28,8 +28,6 @@ const Meter = ({ progressEndValue }) => {
     <div
       className="circular-progress"
       style={{
-        width: "20vw",
-        height: "20vw",
         background: `conic-gradient( ${
           progressValue >= 90
             ? "#49c20f"

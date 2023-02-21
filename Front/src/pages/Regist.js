@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 // import { Link } from "react-router-dom";
 import styled from "styled-components";
+import LoginBackground from "../videos/LoginBackground.mp4";
 
 const Resist = () => {
   const [inputEmail, setInputEmail] = useState("");
@@ -51,48 +52,76 @@ const Resist = () => {
   // }, []);
 
   return (
-    <LoginContainer>
-      <LoginForm>
-        <LoginHeader>
-          <LoginTitle>Resist</LoginTitle>
-          <LoginDescription>
-            Enter your details to start session
-          </LoginDescription>
-        </LoginHeader>
-        <LoginInput>
-          <LoginLabel htmlFor="input-E_mail">E-mail</LoginLabel>
-          <LoginText
-            type="text"
-            name="input-E_mail"
-            value={inputEmail}
-            onChange={handleInputId}
-          />
-        </LoginInput>
-        <LoginInput>
-          <LoginLabel htmlFor="input_pw">Password</LoginLabel>
-          <LoginText
-            type="password"
-            name="input_pw"
-            value={inputNickName}
-            onChange={handleInputNickName}
-          />
-        </LoginInput>
-        <LoginInput>
-          <LoginLabel htmlFor="input_NickName">NickName</LoginLabel>
-          <LoginText
-            type="text"
-            name="input_NickName"
-            value={inputPw}
-            onChange={handleInputPw}
-          />
-        </LoginInput>
-        <LoginButtonContainer>
-          <LoginButton type="button" onClick={onClickResist}>
-            Resist
-          </LoginButton>
-        </LoginButtonContainer>
-      </LoginForm>
-    </LoginContainer>
+    <div
+      style={{
+        position: "relative",
+        overflowX: "hidden",
+        overflowY: "hidden",
+      }}
+    >
+      {" "}
+      <video muted autoPlay loop style={{ width: "auto", height: "auto" }}>
+        <source src={LoginBackground} type="video/mp4" />
+      </video>
+      <LoginContainer
+        style={{
+          position: "absolute",
+          inset: "0",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          fontFamily: "HansonBold",
+        }}
+      >
+        <LoginForm>
+          <LoginHeader>
+            <LoginTitle style={{ color: "white" }}>Resist</LoginTitle>
+            <LoginDescription>
+              Enter your details to start session
+            </LoginDescription>
+          </LoginHeader>
+          <LoginInput>
+            <LoginLabel htmlFor="input-E_mail" style={{ color: "white" }}>
+              E-mail
+            </LoginLabel>
+            <LoginText
+              type="text"
+              name="input-E_mail"
+              value={inputEmail}
+              onChange={handleInputId}
+            />
+          </LoginInput>
+          <LoginInput>
+            <LoginLabel htmlFor="input_pw" style={{ color: "white" }}>
+              Password
+            </LoginLabel>
+            <LoginText
+              type="password"
+              name="input_pw"
+              value={inputNickName}
+              onChange={handleInputNickName}
+            />
+          </LoginInput>
+          <LoginInput>
+            <LoginLabel htmlFor="input_NickName" style={{ color: "white" }}>
+              NickName
+            </LoginLabel>
+            <LoginText
+              type="text"
+              name="input_NickName"
+              value={inputPw}
+              onChange={handleInputPw}
+            />
+          </LoginInput>
+          <LoginButtonContainer>
+            <LoginButton type="button" onClick={onClickResist}>
+              Resist
+            </LoginButton>
+          </LoginButtonContainer>
+        </LoginForm>
+      </LoginContainer>
+    </div>
   );
 };
 
@@ -103,15 +132,16 @@ const LoginContainer = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: #f2f2f2;
+  width: 100vw;
 `;
-
 const LoginForm = styled.form`
   width: 400px;
   background: #ffffff;
   padding: 40px;
   border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.4);
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
 `;
 
 const LoginHeader = styled.div`

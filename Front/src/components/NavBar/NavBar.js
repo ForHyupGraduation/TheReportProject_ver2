@@ -1,9 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 const NavBar = () => {
-  const logOut = () => {
+  const onClickLogOut = () => {
     sessionStorage.clear();
     window.location = "http://localhost:3000/";
+  };
+
+  const onClickProfile = () => {
+    window.location = `/profile/${
+      JSON.parse(sessionStorage.getItem("data")).id
+    }`;
   };
 
   return (
@@ -50,17 +56,16 @@ const NavBar = () => {
           <ul className="navbar-nav ml-auto">
             {sessionStorage.getItem("data") ? (
               <li className="nav-item">
-                <a
-                  className="nav-link"
-                  href={`/profile/${
-                    JSON.parse(sessionStorage.getItem("data")).id
-                  }`}
-                >
-                  <i className="fa-solid fa-circle-user fa-2x"></i>
-                  <a style={{ alignContent: "center" }} onClick={logOut}>
-                    <i className="fa-solid fa-right-from-bracket"></i>
-                  </a>
-                </a>
+                <i
+                  className="fa-solid fa-circle-user fa-lg"
+                  onClick={onClickProfile}
+                  style={{ paddingRight: "10px", cursor: "pointer" }}
+                ></i>
+                <i
+                  className="fa-solid fa-right-from-bracket fa-lg"
+                  style={{ paddingRight: "10px", cursor: "pointer" }}
+                  onClick={onClickLogOut}
+                ></i>
               </li>
             ) : (
               <li className="nav-item">

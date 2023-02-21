@@ -16,6 +16,7 @@ const CompanyListElement = ({
   Upjongpage,
   loggedIn,
   portfolioPage,
+  isSubscribed,
 }) => {
   const [like, setLike] = useState(false);
   const [isLoading, setIsLoading] = useState();
@@ -87,6 +88,7 @@ const CompanyListElement = ({
   };
 
   if (Upjongpage) {
+    console.log(isSubscribed);
     return (
       <tr>
         <th scope="row">{eventKey + 1}</th>
@@ -104,76 +106,80 @@ const CompanyListElement = ({
             </span>
           </Link>
         </td>
-        <td>
-          {/* <SubsribeButton like={like} onClick={toggleLike} /> */}
-          <button
-            type="button"
-            className="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#staticBackdrop"
-            onClick={subscribe}
-          >
-            {subscribeLoading ? (
-              <div className="spinner-border" role="status">
-                <span className="visually-hidden">Loading...</span>
-              </div>
-            ) : (
-              `구독하기`
-            )}
-          </button>
-          <div
-            className="modal fade"
-            id="staticBackdrop"
-            data-bs-backdrop="static"
-            data-bs-keyboard="false"
-            tabIndex="-1"
-            aria-labelledby="staticBackdropLabel"
-            aria-hidden="true"
-          >
-            <div className="modal-dialog">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h1 className="modal-title fs-5" id="staticBackdropLabel">
-                    선택하신 기업 구독이 완료되었습니다.
-                  </h1>
-                  <button
-                    type="button"
-                    className="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
+        {sessionStorage.getItem("data") ? (
+          <td>
+            {/* <SubsribeButton like={like} onClick={toggleLike} /> */}
+            <button
+              type="button"
+              className="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop"
+              onClick={subscribe}
+            >
+              {subscribeLoading ? (
+                <div className="spinner-border" role="status">
+                  <span className="visually-hidden">Loading...</span>
                 </div>
-                <div className="modal-body">
-                  포트폴리오 기능 중 알람을 설정하여 원하는 떄에 이메일을 받을
-                  수 있습니다.
-                </div>
-                <div className="modal-footer">
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                    onClick={() => {
-                      setSubscribeLoading(false);
-                    }}
-                  >
-                    Close
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={() => {
-                      setSubscribeLoading(false);
-                      window.location.reload();
-                    }}
-                    data-bs-dismiss="modal"
-                  >
-                    Understood
-                  </button>
+              ) : (
+                `구독하기`
+              )}
+            </button>
+            <div
+              className="modal fade"
+              id="staticBackdrop"
+              data-bs-backdrop="static"
+              data-bs-keyboard="false"
+              tabIndex="-1"
+              aria-labelledby="staticBackdropLabel"
+              aria-hidden="true"
+            >
+              <div className="modal-dialog">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h1 className="modal-title fs-5" id="staticBackdropLabel">
+                      선택하신 기업 구독이 완료되었습니다.
+                    </h1>
+                    <button
+                      type="button"
+                      className="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div className="modal-body">
+                    포트폴리오 기능 중 알람을 설정하여 원하는 떄에 이메일을 받을
+                    수 있습니다.
+                  </div>
+                  <div className="modal-footer">
+                    <button
+                      type="button"
+                      className="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                      onClick={() => {
+                        setSubscribeLoading(false);
+                      }}
+                    >
+                      Close
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      onClick={() => {
+                        setSubscribeLoading(false);
+                        window.location.reload();
+                      }}
+                      data-bs-dismiss="modal"
+                    >
+                      Understood
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </td>
+          </td>
+        ) : (
+          <></>
+        )}
       </tr>
     );
   }
@@ -183,8 +189,6 @@ const CompanyListElement = ({
       <tr>
         <th scope="row">{eventKey + 1}</th>
         <td>{companyName}</td>
-        <td>{interestPoint}%</td>
-        <td>{growthPoint}%</td>
         <td>
           <Link
             to={{

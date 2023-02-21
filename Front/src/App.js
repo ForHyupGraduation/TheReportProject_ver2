@@ -10,9 +10,8 @@ import Regist from "./pages/Regist";
 import Test from "./pages/Test";
 import Investor from "./pages/Investor";
 import Portfolio from "./pages/Portfolio";
-
-import { useState } from "react";
 import Profile from "./pages/Profile";
+import "./App.css";
 const App = () => {
   // const [color, setColor] = useState();
   // useEffect(() => {
