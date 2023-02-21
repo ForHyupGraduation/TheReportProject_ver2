@@ -75,20 +75,21 @@ public class ProfileService {
                 .map(portFolio -> portFolio.getCompanyName())
                 .collect(Collectors.toList());
 
+        //companyName 이랑 일치하는 회사 내용을 전달
         List<CompanySimpleDto> companySimpleDto = companyRepository.findAll()
                 .stream()
                 .filter(company -> {
-                    return collect
-                            .stream()
-                            .filter(name -> company.getCategoryName().equals(name))
-                            .findFirst()
-                            .get()
-                            .equals(company.getCompanyName());
+                    boolean b = false;
+                    for (String s : collect) {
+                        b = s.equals(company.getCompanyName());
+                    }
+                    return b;
                 })
                 .sorted((c1, c2) -> c2.getSubscribed() - c1.getSubscribed())
                 .map(company -> new CompanySimpleDto(company))
                 .limit(3)
                 .collect(Collectors.toList());
+
         ProfilePage profilePage = new ProfilePage();
         profilePage.setResult(joinResult);
         profilePage.setPortFolioDtos(portFolioDtos);

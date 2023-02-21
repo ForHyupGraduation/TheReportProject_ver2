@@ -40,7 +40,7 @@ public class ProfileController {
         return myProfileDto;
     }
 
-    @GetMapping("/myprofile")
+    @GetMapping("/my-profile")
     public ProfilePage MyProfile(@RequestParam Long memberId) {
         return profileService.getProfile(memberId);
     }
