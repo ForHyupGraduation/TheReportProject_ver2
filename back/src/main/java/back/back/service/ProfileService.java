@@ -63,11 +63,12 @@ public class ProfileService {
         MemberJoinResult joinResult = memberRepository.findById(memberId)
                 .map(member -> new MemberJoinResult(member))
                 .orElse(null);
+
         List<PortFolio> portFolios = portFolioRepository
                 .findByMemberId(memberId);
 
         List<PortFolioDto> portFolioDtos = portFolios.stream()
-                .map(portFolio -> new PortFolioDto())
+                .map(portFolio -> new PortFolioDto(portFolio))
                 .collect(Collectors.toList());
 
         List<String> collect = portFolios
