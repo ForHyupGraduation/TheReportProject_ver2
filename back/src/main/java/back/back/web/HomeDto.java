@@ -1,18 +1,19 @@
 package back.back.web;
 
-import lombok.Data;
+import back.back.web.portfolio.PortFolioDto;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class HomeDto {
     private String categoryName;
+    private List<PortFolioDto> portFolioDtos;
     private List<CompanySimpleInfo> simpleInfos;
-
-    public HomeDto() {
-        simpleInfos = new ArrayList<>();
-    }
 
     public List<CompanySimpleInfo> getSimpleInfos() {
         return simpleInfos;

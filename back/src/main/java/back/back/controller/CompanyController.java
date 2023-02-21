@@ -28,12 +28,17 @@ public class CompanyController {
     private final ProfileService profileService;
 
     @GetMapping("/home")
-    public HomeDto home(@RequestParam String categoryName) {
-       return companyService.home(categoryName);
+    public HomeDto home(@RequestParam String categoryName,
+                        @RequestParam(required = false) Long memberId) {
+       if(memberId == null) {
+           return companyService.home(categoryName);
+       } else {
+           return companyService.home(categoryName, memberId);
+       }
     }
 
     @GetMapping("/test")
-    public CompanyDto test(@RequestParam String companyName){
+    public CompanyDto test(@RequestParam String companyName) {
         CompanyDto companyDto = companyService.mainPage(companyName);
         List<CompanySimpleInfo> simpleInfos = companyService.getSimpleCompanyInfo(companyDto.getCategoryName());
         companyDto.setCompanySimpleInfos(simpleInfos);
