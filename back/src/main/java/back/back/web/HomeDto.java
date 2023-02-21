@@ -12,8 +12,8 @@ import java.util.List;
 @AllArgsConstructor
 public class HomeDto {
     private String categoryName;
-    private List<PortFolioDto> portFolioDtos;
-    private List<CompanySimpleInfo> simpleInfos;
+    private List<PortFolioDto> portFolioDtos = new ArrayList<>();
+    private List<CompanySimpleInfo> simpleInfos = new ArrayList<>();
 
     public List<CompanySimpleInfo> getSimpleInfos() {
         return simpleInfos;
