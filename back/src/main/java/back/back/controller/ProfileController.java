@@ -5,6 +5,7 @@ import back.back.domain.Member;
 import back.back.domain.PortFolio;
 import back.back.service.MemberService;
 import back.back.service.ProfileService;
+import back.back.web.ProfilePage;
 import back.back.web.portfolio.MyProfileDto;
 import back.back.web.portfolio.PortFolioDto;
 import back.back.web.portfolio.PortFolioParam;
@@ -37,5 +38,10 @@ public class ProfileController {
         Member member = memberService.findById(memberId);
         MyProfileDto myProfileDto = new MyProfileDto(member);
         return myProfileDto;
+    }
+
+    @GetMapping("/myprofile")
+    public ProfilePage MyProfile(@RequestParam Long memberId) {
+        return profileService.getProfile(memberId);
     }
 }

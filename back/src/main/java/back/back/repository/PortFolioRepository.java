@@ -10,4 +10,5 @@ import java.util.List;
 public interface PortFolioRepository extends JpaRepository<PortFolio, Long> {
     List<PortFolio> findByMemberId(Long MemberId);
     List<PortFolio> deleteByCompanyName(String companyName);
+
 }
