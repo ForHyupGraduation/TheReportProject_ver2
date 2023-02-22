@@ -3,7 +3,6 @@ import { Badge } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import SubsribeButton from "../../SubscribeButton/SubsribeButton";
 // import { Accordion, Badge } from "react-bootstrap";
 // import LineChart from "../../Graphs/LineChart";
 // import Meter from "../../Meters/Meter";
@@ -37,31 +36,37 @@ const CompanyListElement = ({
       return;
     }
   }, [subscribeLoading]);
-
+  let subscribeButton = "구독하기";
+  if (isSubscribed) {
+    subscribeButton = "구독취소하기";
+  }
   const toggleLike = async (e) => {
     // const res = await axios.post(``);컴퍼니 네임 전달?
     setLike(!like);
   };
 
   const subscribe = async (e) => {
-    let data = {
-      memberId: JSON.parse(sessionStorage.getItem("data")).id,
-      companyName: companyName,
-    };
-
-    await axios
-      .post("http://localhost:8080/add/portfolio", JSON.stringify(data), {
-        headers: {
-          "Content-Type": `application/json`,
-        },
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    setSubscribeLoading(true);
+    if (!isSubscribed) {
+      let data = {
+        memberId: JSON.parse(sessionStorage.getItem("data")).id,
+        companyName: companyName,
+      };
+      await axios
+        .post("http://localhost:8080/add/portfolio", JSON.stringify(data), {
+          headers: {
+            "Content-Type": `application/json`,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      setSubscribeLoading(true);
+    } else {
+      unSubscribe();
+    }
   };
 
   const unSubscribe = async (e) => {
@@ -88,7 +93,6 @@ const CompanyListElement = ({
   };
 
   if (Upjongpage) {
-    console.log(isSubscribed);
     return (
       <tr>
         <th scope="row">{eventKey + 1}</th>
@@ -108,7 +112,6 @@ const CompanyListElement = ({
         </td>
         {sessionStorage.getItem("data") ? (
           <td>
-            {/* <SubsribeButton like={like} onClick={toggleLike} /> */}
             <button
               type="button"
               className="btn btn-primary"
@@ -121,7 +124,7 @@ const CompanyListElement = ({
                   <span className="visually-hidden">Loading...</span>
                 </div>
               ) : (
-                `구독하기`
+                subscribeButton
               )}
             </button>
             <div
@@ -156,6 +159,7 @@ const CompanyListElement = ({
                       className="btn btn-secondary"
                       data-bs-dismiss="modal"
                       onClick={() => {
+                        unSubscribe();
                         setSubscribeLoading(false);
                       }}
                     >
