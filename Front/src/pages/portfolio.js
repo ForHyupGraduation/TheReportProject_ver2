@@ -3,9 +3,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import CompanyList from "../components/List/CompanyList/CompanyList";
 import styled from "styled-components";
-
+import { useMemo } from "react";
 const Portfolio = () => {
   const [search, setSearch] = useState("");
+
   const onChange = (e) => {
     setSearch(e.target.value);
   };
@@ -15,33 +16,36 @@ const Portfolio = () => {
 
   let memberId = JSON.parse(sessionStorage.getItem("data")).id;
 
-  console.log(memberId);
-
   useEffect(() => {
     const fechData = async () => {
       setIsLoading(true);
       try {
-        await axios
-          .get(`http://localhost:8080/portfolios?memberId=${memberId}`)
-          .then((res) => {
-            setCompanies(res.data.portFolioDtos);
-          });
+        const res = await axios.get(
+          `http://localhost:8080/portfolios?memberId=${memberId}`
+        );
+        setCompanies(res.data.portFolioDtos);
       } catch (e) {
         console.log(e);
       }
       setIsLoading(false);
     };
     fechData();
-  }, []);
+  }, [memberId]);
+
+  const filterTitle = useMemo(() => {
+    if (companies) {
+      return companies.filter((p) => {
+        return p.companyName
+          .toLocaleLowerCase()
+          .includes(search.toLocaleLowerCase());
+      });
+    } else {
+      return [];
+    }
+  }, [companies, search]);
 
   if (companies && !isLoading) {
     console.log(companies);
-    const filterTitle = companies.filter((p) => {
-      return p.companyName
-        .toLocaleLowerCase()
-        .includes(search.toLocaleLowerCase());
-    });
-
     return (
       <div>
         <PortfolioContainer>
@@ -52,10 +56,6 @@ const Portfolio = () => {
                 <i className="fa-solid fa-magnifying-glass"></i>
               </button>
             </SearchContainer>
-            <AlarmContainer>
-              <i class="fa-2x fa-solid fa-bell"></i>
-              <i class="fa-2x fa-solid fa-bell-slash"></i>
-            </AlarmContainer>
             <TagContainer>태그란</TagContainer>
             <CompanyList
               companies={filterTitle}
@@ -103,11 +103,4 @@ const TagContainer = styled.div`
   height: 40px;
   border: solid 1px;
   margin-bottom: 40px;
-`;
-
-const AlarmContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 30px;
-  border: solid 1px;
 `;

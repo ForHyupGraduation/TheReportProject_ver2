@@ -1,19 +1,29 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import CompanyListElement from "./CompanyListElement";
-
+import { useMemo } from "react";
 const CompanyList = ({
   companies,
   Upjongpage,
   portfolioPage,
   subscribedCompany,
 }) => {
-  const [isLoading, setIsLoading] = useState();
   const [loggedIn, setLoggedIn] = useState(false);
-  console.log(subscribedCompany);
+  useState();
+
   useEffect(() => {
     if (sessionStorage.getItem("data")) {
       setLoggedIn(true);
+    }
+  }, []);
+
+  const modifiedSubscribedComapnyList = useMemo(() => {
+    if (subscribedCompany) {
+      return subscribedCompany.map((company) => {
+        return company.companyName;
+      });
+    } else {
+      return [];
     }
   }, []);
 
@@ -23,10 +33,6 @@ const CompanyList = ({
     //   console.log(company.companyName);
     //   return company.companyName;
     // });
-    let modifiedSubscribedComapnyList = subscribedCompany.map((company) => {
-      console.log(company.companyName);
-      return company.companyName;
-    });
 
     return (
       <div>
@@ -96,14 +102,15 @@ const CompanyList = ({
     );
   }
   if (portfolioPage) {
+    console.log(companies);
     return (
       <div>
         <table className="table table-striped">
           <thead>
             <tr style={{ fontSize: "0.8rem", fontWeight: "bold" }}>
               <th scope="col">#</th>
+              <th scope="col">업종 이름</th>
               <th scope="col">회사이름</th>
-              <th scope="col"></th>
             </tr>
           </thead>
           <tbody style={{ fontSize: "0.8rem" }}>
@@ -114,6 +121,7 @@ const CompanyList = ({
                   interestPoint={company.interestPoint}
                   growthPoint={company.growthPoint}
                   companyName={company.companyName}
+                  companyCategoryName={company.companyCategoryName}
                   eventKey={index}
                   portfolioPage={portfolioPage}
                 />
