@@ -1,6 +1,8 @@
 import os
 
 
+DB_PATH = "../DB"
+
 INTERESTS_IN_DB_PATH = "../DB/interests"
 NORMALIZED_INTERESTS_IN_DB_PATH = "../DB/normalizedInterests"
 NORMALIZED_GROWTH_RATES_IN_DB_PATH = "../DB/normalizedGrowthRates"

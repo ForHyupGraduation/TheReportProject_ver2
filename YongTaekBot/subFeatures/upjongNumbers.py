@@ -1,4 +1,7 @@
 from crawling import CreateChromeDriver
+from crawling import GetUpjongs
+from subFeatures import DB_PATH
+
 from selenium.webdriver.common.by import By
 from urllib.parse import urlparse
 
@@ -7,7 +10,21 @@ import time
 import random
 import csv
 
-# 겹치는 현상 정의하기
+
+def DownloadUpjongsTable():
+    driver = CreateChromeDriver()
+    upjongs = GetUpjongs(driver)
+    
+    with open(f"{DB_PATH}/upjongsTable.csv", 'w', encoding='UTF-8', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(["upjongName", "UpjongNumber"])
+        
+        for upjongName in upjongs:
+            writer.writerow([upjongName, upjongs[upjongName]])
+
+    driver.close()
+
+
 def DownloadUpjongNumbers():
     companyInfos = []
     companyCode = None

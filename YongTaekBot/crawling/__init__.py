@@ -3,9 +3,11 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 
+from time import sleep
+from random import randrange
+from urllib.parse import urlparse
+
 import os
-import random
-import time
 
 YEARLY_SALES_DB_PATH_IN_DB = "../DB/yearly/sales"
 YEARLY_OPERATING_PROFITS_DB_PATH_IN_DB = "../DB/yearly/operatingProfits"
@@ -46,6 +48,18 @@ userAgents = [
 "Mozilla/5.0 (Linux; U; Android 6.0.1; ru-ru; MI 4W Build/MMB29M) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/71.0.3578.141 Mobile Safari/537.36 XiaoMi/MiuiBrowser/11.4.3-g",
 ]
 
+def CreateChromeDriver():
+    options = webdriver.ChromeOptions()
+    options.add_argument("disable-gpu")
+    options.add_argument("lang=ko_KR")
+    options.add_argument(
+        userAgents[randrange(0, len(userAgents))]
+    )
+
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    return driver
+
+# Crawling Data Classes
 class companyGrowthRatesDataClass:
     def __init__(self, companyName, companyCode, averageSalesGrowthRate, averageOperatingProfitsGrowthRate) -> None:
         self.companyName = companyName
@@ -67,7 +81,20 @@ class volumeDataClass:
         self.volumeDate = volumeDate
         self.volume = volume
 
+# Get URL Parts
+def GetFinanceVolumeURL(companyCode, pageNumber):
+    return f"https://finance.naver.com/item/frgn.naver?code={companyCode}&page={pageNumber}"
 
+def GetFinanceBoardURL(companyCode, pageNumber):
+    return f"https://finance.naver.com/item/board.naver?code={companyCode}&page={pageNumber}"
+
+def GetComapnyMainPageURL(companyCode):
+    return f"https://finance.naver.com/item/main.naver?code={companyCode}"
+
+def GetUpjongPageURL(upjongNumber):
+    return f"https://finance.naver.com/sise/sise_group_detail.naver?type=upjong&no={upjongNumber}"
+
+# Init Crawling Environment
 def InitCrawling():
     if not os.path.exists("./data"):
         os.makedirs("./data")
@@ -90,7 +117,6 @@ def InitCrawling():
     if not os.path.exists("./data/yearly/operatingProfits"):
         os.makedirs("./data/yearly/operatingProfits")
 
-
 def InitPost(companyCode):
     with open(f"./data/post/post{companyCode}.csv", 'w', newline='') as csvfile:
         pass
@@ -109,29 +135,7 @@ def InitYearly(upjongNumber):
     with open(f"./data/yearly/operatingProfits/operatingProfits{upjongNumber}.csv", 'w', newline='', encoding='UTF-8') as csvfile:
         pass
     
-def GetFinanceVolumeURL(companyCode, pageNumber):
-    return f"https://finance.naver.com/item/frgn.naver?code={companyCode}&page={pageNumber}"
-
-def GetFinanceBoardURL(companyCode, pageNumber):
-    return f"https://finance.naver.com/item/board.naver?code={companyCode}&page={pageNumber}"
-
-def GetComapnyMainPageURL(companyCode):
-    return f"https://finance.naver.com/item/main.naver?code={companyCode}"
-
-def GetUpjongPageURL(upjongNumber):
-    return f"https://finance.naver.com/sise/sise_group_detail.naver?type=upjong&no={upjongNumber}"
-
-def CreateChromeDriver():
-    options = webdriver.ChromeOptions()
-    options.add_argument("disable-gpu")
-    options.add_argument("lang=ko_KR")
-    options.add_argument(
-        userAgents[random.randrange(0, len(userAgents))]
-    )
-
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-    return driver
-
+# Sub Features For Crawling 
 def CheckIsKonex(companyCode):
     driver = CreateChromeDriver()
 
@@ -139,7 +143,7 @@ def CheckIsKonex(companyCode):
     companyURL = f"https://finance.naver.com/item/main.naver?code={companyCode}"
     
     driver.get(companyURL)
-    time.sleep(random.randrange(5, 7))
+    sleep(randrange(5, 7))
     konexInKorean = driver.find_element(By.XPATH, '//*[@id="content"]/div[2]/div/table/tbody/tr[3]/td[1]').text
 
     if (konexInKorean == "코넥스"):
@@ -151,5 +155,55 @@ def CheckIsKonex(companyCode):
     driver.close()
     return isKonex
 
+def GetRatios(numbers):
+    ratios = []
+    if len(numbers) == 0 or 0 in numbers:
+        return ratios
+    else:
+        for index in range(0, len(numbers) - 1):
+            ratio = ((numbers[index + 1] - numbers[index]) / (numbers[index])) * 100
+            ratios.append(float(ratio))
+    return ratios
+
+def ChangeStringNumbersToFloatNumbers(arr):
+    index = 0
+    for element in arr:
+        arr[index] = float(element.replace(',', ''))
+        index += 1
+    return arr
+
+# Get Upjongs & Company Codes
+def GetUpjongs(driver):
+    upjongNumbers = []
+    upjongNames = []
+    upjongs = dict()
+
+    driver.get("https://finance.naver.com/sise/sise_group.naver?type=upjong")
+    sleep(randrange(3, 4))
+    tbodyElement = driver.find_element(By.XPATH, '//*[@id="contentarea_left"]/table/tbody')
+    trElements = tbodyElement.find_elements(By.TAG_NAME, 'tr')
+
+    for trElement in trElements:
+        if "%" in trElement.text:
+            upjongLinkElement = trElement.find_element(By.TAG_NAME, 'a')
+            upjongNumbers.append(urlparse(upjongLinkElement.get_attribute('href')).query.split('&')[1].replace('no=', ''))
+            upjongNames.append(upjongLinkElement.text)
+    
+    for index in range(len(upjongNumbers)):
+        upjongs[upjongNames[index]] = upjongNumbers[index]
+    
+    return upjongs
+
+def GetCompanyCodes(driver, upjongNumber):
+    companyCodes = []
+    driver.get(GetUpjongPageURL(upjongNumber))
+    sleep(randrange(3, 4))
+
+    companyNames = driver.find_elements(By.CLASS_NAME, 'name_area')
+    for companyName in companyNames:
+        companyCode = urlparse(companyName.find_element(By.TAG_NAME, 'a').get_attribute('href')).query.split("=")[1]
+        companyCodes.append(companyCode)
+
+    return companyCodes
 
 InitCrawling()
