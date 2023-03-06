@@ -7,43 +7,42 @@ import back.back.domain.financialratio.OperatingProfit;
 import back.back.domain.financialratio.OperatingProfitMargin;
 import back.back.domain.financialratio.Sales;
 import jakarta.persistence.*;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
-@SpringBootTest
-@Transactional
+
 public class JpaTest {
 
-    @PersistenceContext
-    EntityManager em;
+
     @Test
     void jpaTest() {
-        NetProfit netProfit = new NetProfit();
-        em.persist(netProfit);
 
-        OperatingProfit operatingProfit = new OperatingProfit();
-        em.persist(operatingProfit);
+    }
 
-        Sales sales = new Sales();
-        em.persist(sales);
+    @Test
+    void test() {
+        List<String> strings = Arrays.asList("밸로프",
+                "위메이드플레이",
+                "미스터블루",
+                "크래프톤",
+                "미투젠",
+                "액션스퀘어");
 
-        OperatingProfitMargin operatingProfitMargin = new OperatingProfitMargin();
-        em.persist(operatingProfitMargin);
+        List<String> test1Str = Arrays.asList("미스터블루", "크래프톤", "미투젠");
+        List<String> collect = strings
+                .stream()
+                .filter(string -> test1Str.contains(string))
+                .collect(Collectors.toList());
 
-        List<News> news = new ArrayList<>();
-        news.add(new News());
-
-
-        Company company = new Company();
-//        company.setNetProfit(netProfit);
-        company.setOperatingProfit(operatingProfit);
-//        company.setOperatingProfitMargin(operatingProfitMargin);
-
-        em.persist(company);
+        collect.stream()
+                .forEach(System.out::println);
     }
 
     @Entity

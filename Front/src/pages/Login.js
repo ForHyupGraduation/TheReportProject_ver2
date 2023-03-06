@@ -4,6 +4,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Layouts/Header";
+import LoginBackground from "../videos/LoginBackground.mp4";
 
 const Login = () => {
   const [inputEmail, setInputEmail] = useState("");
@@ -67,17 +68,37 @@ const Login = () => {
   // }, []);
 
   return (
-    <>
-      <LoginContainer>
+    <div
+      style={{
+        position: "relative",
+        overflowX: "hidden",
+        overflowY: "hidden",
+      }}
+    >
+      <video muted autoPlay loop style={{ width: "auto", height: "auto" }}>
+        <source src={LoginBackground} type="video/mp4" />
+      </video>
+      <LoginContainer
+        style={{
+          position: "absolute",
+          inset: "0",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <LoginForm>
           <LoginHeader>
-            <LoginTitle>Login</LoginTitle>
+            <LoginTitle style={{ color: "white" }}>Login</LoginTitle>
             <LoginDescription>
               Enter your details to start session
             </LoginDescription>
           </LoginHeader>
           <LoginInput>
-            <LoginLabel htmlFor="input-E_mail">E-mail</LoginLabel>
+            <LoginLabel htmlFor="input-E_mail" style={{ color: "white" }}>
+              E-mail
+            </LoginLabel>
             <LoginText
               type="text"
               name="input-E_mail"
@@ -86,7 +107,9 @@ const Login = () => {
             />
           </LoginInput>
           <LoginInput>
-            <LoginLabel htmlFor="input_pw">Password</LoginLabel>
+            <LoginLabel htmlFor="input_pw" style={{ color: "white" }}>
+              Password
+            </LoginLabel>
             <LoginText
               type="password"
               name="input_pw"
@@ -108,13 +131,16 @@ const Login = () => {
             </ExternalLogin>
           </LoginButtonContainer>
           <SignUpLinkContainer>
-            <SignUpLink to={{ pathname: `/regist` }}>
+            <SignUpLink
+              to={{ pathname: `/regist` }}
+              style={{ textDecoration: "none", color: "white" }}
+            >
               Not a member yet?
             </SignUpLink>
           </SignUpLinkContainer>
         </LoginForm>
       </LoginContainer>
-    </>
+    </div>
   );
 };
 
@@ -125,7 +151,7 @@ const LoginContainer = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: #f2f2f2;
+  width: 100vw;
 `;
 
 const LoginForm = styled.form`
@@ -133,6 +159,7 @@ const LoginForm = styled.form`
   background: #ffffff;
   padding: 40px;
   border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.4);
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
 `;
 
@@ -142,6 +169,7 @@ const LoginHeader = styled.div`
 `;
 
 const LoginTitle = styled.h1`
+  color: white;
   font-size: 36px;
   font-weight: bold;
   color: #333;

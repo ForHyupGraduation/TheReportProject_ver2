@@ -1,22 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Doughnut } from "react-chartjs-2";
 import styled from "styled-components";
+import { useState } from "react";
 import { Chart, ArcElement } from "chart.js";
 Chart.register(ArcElement);
 
-const DoughnutChart = () => {
+const DoughnutChart = (subRatio) => {
+  if (subRatio) {
+    console.log(Object.keys(subRatio.subRatio));
+  }
   const data = {
-    labels: ["Red", "Blue", "Yellow"],
+    labels: Object.keys(subRatio.subRatio),
     datasets: [
       {
-        data: [300, 50, 100],
+        data: Object.values(subRatio.subRatio),
         backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
         hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
       },
     ],
   };
-
-  console.log("hellop");
 
   return <Doughnut data={data} />;
 };

@@ -42,4 +42,9 @@ public class CompanyRepository {
         return findCompany;
     }
 
+    public List<Company> findAll() {
+        return em.createQuery("select c from Company c", Company.class)
+                .getResultList();
+    }
+
 }

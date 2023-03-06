@@ -26,9 +26,4 @@ public class MemberController {
         MemberJoinResult joinResult = new MemberJoinResult(member);
         return joinResult;
     }
-
-    @PostMapping
-    public String update() {
-        return "ok";
-    }
 }

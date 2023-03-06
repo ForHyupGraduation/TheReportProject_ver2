@@ -2,6 +2,7 @@ package back.back.service;
 
 import back.back.csvFileReader.CsvFileReader;
 import back.back.domain.Company;
+import back.back.domain.Member;
 import back.back.domain.News;
 import back.back.domain.financialratio.*;
 import back.back.domain.ratio.NormalizedGrowthRatio;
@@ -9,7 +10,9 @@ import back.back.domain.ratio.NormalizedInterestRatio;
 import back.back.domain.ratio.PostAndTrading;
 import back.back.repository.CompanyRepository;
 import back.back.repository.FinancialRepository;
+import back.back.repository.MemberRepository;
 import back.back.web.*;
+import back.back.web.portfolio.PortFolioDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,8 +27,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class CompanyService {
     private final CompanyRepository companyRepository;
-    private final FinancialRepository financialRepository;
-    private final CsvFileReader reader;
+    private final MemberRepository memberRepository;
 
     public Company save(FinancialDto financialDto, List<News> news, String companyName) {
         Company company = new Company();
@@ -110,11 +112,33 @@ public class CompanyService {
         List<Company> company = companyRepository.findAllByCategoryName(categoryName);
         HomeDto homeDto = new HomeDto();
         for (Company company1 : company) {
-            homeDto.getSimpleInfos().add(new CompanySimpleInfo(company1.getCompanyName(),
-                    company1.getGrowthPoint(), company1.getInterestPoint(), company1.getNormalizedGrowthRatio().getAverageSalesGrowthRate(),
+            homeDto.getSimpleInfos()
+                    .add(new CompanySimpleInfo(company1.getCompanyName(),
+                    company1.getGrowthPoint(), company1.getInterestPoint(),
+                    company1.getNormalizedGrowthRatio().getAverageSalesGrowthRate(),
                     company1.getNormalizedGrowthRatio().getAverageOperatingProfitsGrowthRate()));
         }
         homeDto.setCategoryName(categoryName);
+        return homeDto;
+    }
+
+    public HomeDto home(String categoryName, Long memberId) {
+        List<Company> company = companyRepository.findAllByCategoryName(categoryName);
+        HomeDto homeDto = new HomeDto();
+        for (Company company1 : company) {
+            homeDto.getSimpleInfos()
+                    .add(new CompanySimpleInfo(company1.getCompanyName(),
+                            company1.getGrowthPoint(), company1.getInterestPoint(),
+                            company1.getNormalizedGrowthRatio().getAverageSalesGrowthRate(),
+                            company1.getNormalizedGrowthRatio().getAverageOperatingProfitsGrowthRate()));
+        }
+        homeDto.setCategoryName(categoryName);
+        Member member = memberRepository.findById(memberId).orElseThrow();
+        homeDto.setPortFolioDtos(member
+                .getPortFolios()
+                .stream()
+                .map(portFolio -> new PortFolioDto(portFolio))
+                .collect(Collectors.toList()));
         return homeDto;
     }
 
