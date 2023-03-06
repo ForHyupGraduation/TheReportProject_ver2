@@ -49,11 +49,9 @@ const CompanyListElement = ({
     };
     console.log(data);
     await axios
-      .post("http://localhost:8080/add/portpolio", data, {
-        headers: {
-          "Content-Type": `application/json`,
-        },
-      })
+      .post("http://localhost:8080/add/portpolio", data,{headers: {
+        'Content-Type': 'multipart/form-data'
+      }})
       .then((res) => {
         console.log(res);
       })
