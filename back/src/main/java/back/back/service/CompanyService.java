@@ -27,9 +27,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class CompanyService {
     private final CompanyRepository companyRepository;
-    private final FinancialRepository financialRepository;
     private final MemberRepository memberRepository;
-    private final CsvFileReader reader;
 
     public Company save(FinancialDto financialDto, List<News> news, String companyName) {
         Company company = new Company();

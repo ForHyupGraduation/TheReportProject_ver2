@@ -25,8 +25,6 @@ import java.util.List;
 public class CompanyController {
     private final CompanyService companyService;
     private final SendRequest sendRequest;
-    private final ProfileService profileService;
-
     @GetMapping("/home")
     public HomeDto home(@RequestParam String categoryName,
                         @RequestParam(required = false) Long memberId) {

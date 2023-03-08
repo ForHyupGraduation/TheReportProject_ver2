@@ -1,80 +1,31 @@
 from selenium.webdriver.common.by import By
-from urllib.parse import urlparse
 
 from crawling import GetComapnyMainPageURL
-from crawling import GetUpjongPageURL
 from crawling import CreateChromeDriver
-
+from crawling import GetRatios
+from crawling import ChangeStringNumbersToFloatNumbers
+from crawling import GetCompanyCodes
 
 from crawling import companyGrowthRatesDataClass
 
 from crawling import YEARLY_SALES_DB_PATH_IN_DB
 from crawling import YEARLY_OPERATING_PROFITS_DB_PATH_IN_DB
 
-import time
-import random
+from time import sleep
+from random import randrange
+
 import csv
 
-def GetRatios(numbers):
-    ratios = []
-    if len(numbers) == 0 or 0 in numbers:
-        return ratios
-    else:
-        for index in range(0, len(numbers) - 1):
-            ratio = ((numbers[index + 1] - numbers[index]) / (numbers[index])) * 100
-            ratios.append(float(ratio))
-    return ratios
 
-def ChangeStringNumbersToFloatNumbers(arr):
-    index = 0
-    for element in arr:
-        arr[index] = float(element.replace(',', ''))
-        index += 1
-    return arr
 
-def GetUpjongsNumbers(driver, onetime=False):
-    driver.get("https://finance.naver.com/sise/sise_group.naver?type=upjong")
-    time.sleep(random.randrange(5, 7))
-
-    tbodyElement = driver.find_element(By.XPATH, '//*[@id="contentarea_left"]/table/tbody')
-    trElements = tbodyElement.find_elements(By.TAG_NAME, 'tr')
-
-    upjongNumbers = []
-    for trElement in trElements:
-        if "%" in trElement.text:
-            query = urlparse(trElement.find_element(By.TAG_NAME, 'a').get_attribute('href')).query
-            upjongNumbers.append(query.split('&')[1].replace('no=', ''))
-
-    if onetime:
-        driver.close()
-        driver = None
-    
-    return upjongNumbers
-
-def GetCompanyCodes(driver, upjongNumber, oneTime=False):
-    companyCodes = []
-    driver.get(GetUpjongPageURL(upjongNumber))
-    time.sleep(random.randrange(5, 7))
-
-    companyNames = driver.find_elements(By.CLASS_NAME, 'name_area')
-    for companyName in companyNames:
-        companyCode = urlparse(companyName.find_element(By.TAG_NAME, 'a').get_attribute('href')).query.split("=")[1]
-        companyCodes.append(companyCode)
-
-    if oneTime:
-        driver.close()
-        driver = None
-    
-    return companyCodes
-
-def GetCompanyGrowthRates(driver, companyCode, oneTime = False):
+def GetCompanyGrowthRates(driver, companyCode):
     companyName = None
     yearlySalesGrowthRates = []
     yearlyOperatingProfitsGrowthRates = []
 
     try:
         driver.get(GetComapnyMainPageURL(companyCode))
-        time.sleep(random.randrange(5, 7))
+        sleep(randrange(3, 4))
 
         companyName = driver.find_element(By.XPATH, '//*[@id="middle"]/div[1]/div[1]/h2/a').text
         tbodyElement = driver.find_element(By.XPATH, '//*[@id="content"]/div[4]/div[1]/table/tbody')
@@ -99,10 +50,6 @@ def GetCompanyGrowthRates(driver, companyCode, oneTime = False):
                     yearlyOperatingProfits = ChangeStringNumbersToFloatNumbers(trElement.text.split(' ')[1:4])
                 elif len(trElement.text.split(' ')) == 9:
                     yearlyOperatingProfits = ChangeStringNumbersToFloatNumbers(trElement.text.split(' ')[1:4])
-
-        if oneTime:
-            driver.close()
-            driver = None
 
         yearlySalesGrowthRates = GetRatios(yearlySales)
         yearlyOperatingProfitsGrowthRates = GetRatios(yearlyOperatingProfits)
@@ -139,7 +86,7 @@ def GetCompanyGrowthRates(driver, companyCode, oneTime = False):
 
 def DownloadGrowthDataSet(upjongNumber):
     driver = CreateChromeDriver()    
-    companyCodes = GetCompanyCodes(driver=driver, oneTime=False, upjongNumber=upjongNumber)
+    companyCodes = GetCompanyCodes(driver=driver, upjongNumber=upjongNumber)
 
 
     with open(f"./data/growthRates/growthRates{upjongNumber}.csv", 'w', newline='', encoding='UTF-8') as csvfile:
