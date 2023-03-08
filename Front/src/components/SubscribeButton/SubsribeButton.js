@@ -35,7 +35,7 @@ const SubsribeButton = ({ companyName, isSubscribed, portfolioPage }) => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [interestPoint]);
 
   const subscribe = async (e) => {
     if (!isSubscribed) {
@@ -96,9 +96,9 @@ const SubsribeButton = ({ companyName, isSubscribed, portfolioPage }) => {
         </Button>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>구독 취소를 하시겠습니까?</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+          <Modal.Body>구독을 취소하실 경우 알람을 못 받습니다.</Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Close
@@ -110,7 +110,7 @@ const SubsribeButton = ({ companyName, isSubscribed, portfolioPage }) => {
                 unSubscribe();
               }}
             >
-              Save Changes
+              네, 취소합니다.
             </Button>
           </Modal.Footer>
         </Modal>
@@ -132,6 +132,7 @@ const SubsribeButton = ({ companyName, isSubscribed, portfolioPage }) => {
           <Modal.Body>
             완료하기 버튼을 누르면 구독이 완료됩니다!
             <input onChange={handleChange} />
+            <img src="../img/Brazuca - Pride.png" alt="모나리자" />
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
@@ -158,9 +159,11 @@ const SubsribeButton = ({ companyName, isSubscribed, portfolioPage }) => {
         </Button>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>설정 값을 변경 하시겠습니까?</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+          <Modal.Body>
+            <input onChange={handleChange} />
+          </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Close
@@ -172,7 +175,7 @@ const SubsribeButton = ({ companyName, isSubscribed, portfolioPage }) => {
                 unSubscribe();
               }}
             >
-              Save Changes
+              아니요, 구독을 취소합니다.
             </Button>
           </Modal.Footer>
         </Modal>

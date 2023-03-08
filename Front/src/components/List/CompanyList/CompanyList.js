@@ -115,13 +115,14 @@ const CompanyList = ({
           </thead>
           <tbody style={{ fontSize: "0.8rem" }}>
             {companies.map((company, index) => {
+              console.log(company.categoryName);
               return (
                 <CompanyListElement
                   key={index}
                   interestPoint={company.interestPoint}
                   growthPoint={company.growthPoint}
                   companyName={company.companyName}
-                  companyCategoryName={company.companyCategoryName}
+                  companyCategoryName={company.categoryName}
                   eventKey={index}
                   portfolioPage={portfolioPage}
                 />

@@ -45,7 +45,7 @@ const Portfolio = () => {
   }, [companies, search]);
 
   if (companies && !isLoading) {
-    console.log(companies);
+    console.log(filterTitle);
     return (
       <div>
         <PortfolioContainer>
@@ -56,12 +56,8 @@ const Portfolio = () => {
                 <i className="fa-solid fa-magnifying-glass"></i>
               </button>
             </SearchContainer>
-            <TagContainer>태그란</TagContainer>
-            <CompanyList
-              companies={filterTitle}
-              upjongNumber={263}
-              portfolioPage={true}
-            />
+            <TagContainer></TagContainer>
+            <CompanyList companies={filterTitle} portfolioPage={true} />
           </PortfolioForm>
         </PortfolioContainer>
       </div>
