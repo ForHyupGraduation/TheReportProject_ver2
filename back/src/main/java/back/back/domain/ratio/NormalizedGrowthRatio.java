@@ -16,6 +16,7 @@ public class NormalizedGrowthRatio {
     private Long id;
 
     @CsvBindByName(column = "companyName")
+
     private String companyName;
 
     @CsvBindByName(column = "companyCode")
@@ -26,5 +27,6 @@ public class NormalizedGrowthRatio {
 
     @CsvBindByName(column = "averageOperatingProfitsGrowthRate")
     private Double averageOperatingProfitsGrowthRate;
+
 
 }

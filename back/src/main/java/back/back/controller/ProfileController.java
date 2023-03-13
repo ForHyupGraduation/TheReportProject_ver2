@@ -23,6 +23,7 @@ public class ProfileController {
     @PostMapping("/add/portfolio")
     public MyProfileDto addPortPolio(@RequestBody PortFolioParam param) {
         Member member = profileService.addPortPolio(param.getMemberId(), param.getCompanyName());
+
         MyProfileDto myProfileDto = new MyProfileDto(member);
         return myProfileDto;
     }

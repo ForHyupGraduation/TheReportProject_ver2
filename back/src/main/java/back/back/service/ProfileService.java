@@ -11,6 +11,7 @@ import back.back.web.CompanySimpleDto;
 import back.back.web.ProfilePage;
 import back.back.web.member.MemberJoinResult;
 import back.back.web.portfolio.PortFolioDto;
+import back.back.web.portfolio.PortFolioParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -45,6 +46,23 @@ public class ProfileService {
         member.addPortFolios(portFolio);
         return member;
     }
+
+    public Member addPortPolio(PortFolioParam param) {
+        Member member = memberRepository
+                .findById(param.getMemberId())
+                .orElse(null);
+        Company company = companyRepository
+                .findByCompanyName(param.getCompanyName())
+                .stream()
+                .findFirst()
+                .orElse(null);
+
+        company.addSubscriber();
+        PortFolio portFolio = portFolioRepository.save(PortFolio.makePortPolio(company, param));
+        member.addPortFolios(portFolio);
+        return member;
+    }
+
 
     public Member removePortPolio(Long memberId, String companyName) {
         Member member = memberRepository

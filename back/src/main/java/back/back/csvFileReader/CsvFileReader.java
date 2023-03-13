@@ -93,10 +93,7 @@ public class CsvFileReader {
         } else if(categoryName.equals("양방향미디어와서비스")) {
             code = 300;
         }
-
         try {
-
-            System.out.println("fff");
             return new CsvToBeanBuilder<Sales>(new FileReader("DB/yearly/sales/sales"+ code +".csv"))
                     .withIgnoreEmptyLine(true)
                     .withType(Sales.class)

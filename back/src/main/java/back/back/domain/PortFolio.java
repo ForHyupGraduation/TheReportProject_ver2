@@ -1,5 +1,6 @@
 package back.back.domain;
 
+import back.back.web.portfolio.PortFolioParam;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,4 +41,10 @@ public class PortFolio {
                 company.getCompanyName(), 20);
     }
 
+    public static PortFolio makePortPolio(Company company, PortFolioParam param) {
+        if (param.getInterestPoint() == null) {
+            param.setInterestPoint(20);
+        }
+        return new PortFolio(company.getCategoryName(),company.getCompanyName(), param.getInterestPoint());
+    }
 }
