@@ -75,7 +75,7 @@ const Login = () => {
         overflowY: "hidden",
       }}
     >
-      <video muted autoPlay loop style={{ width: "auto", height: "auto" }}>
+      <video muted autoPlay loop style={{ width: "auto", height: "100%" }}>
         <source src={LoginBackground} type="video/mp4" />
       </video>
       <LoginContainer

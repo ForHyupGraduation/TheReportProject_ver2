@@ -3,14 +3,13 @@ import { Link } from "react-router-dom";
 const NavBar = () => {
   const onClickLogOut = () => {
     sessionStorage.clear();
-    window.location = "http://localhost:3000/";
   };
 
-  const onClickProfile = () => {
-    window.location = `/profile/${
-      JSON.parse(sessionStorage.getItem("data")).id
-    }`;
-  };
+  // const onClickProfile = () => {
+  //   window.location = `/profile/${
+  //     JSON.parse(sessionStorage.getItem("data")).id
+  //   }`;
+  // };
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -56,16 +55,26 @@ const NavBar = () => {
           <ul className="navbar-nav ml-auto">
             {sessionStorage.getItem("data") ? (
               <li className="nav-item">
-                <i
+                {/* <i
                   className="fa-solid fa-circle-user fa-lg"
                   onClick={onClickProfile}
                   style={{ paddingRight: "10px", cursor: "pointer" }}
-                ></i>
-                <i
-                  className="fa-solid fa-right-from-bracket fa-lg"
-                  style={{ paddingRight: "10px", cursor: "pointer" }}
-                  onClick={onClickLogOut}
-                ></i>
+                ></i> */}
+                <li className="nav-item">
+                  <a
+                    className="nav-link"
+                    href="http://localhost:3000/"
+                    style={{
+                      paddingRight: "10px",
+                      cursor: "pointer",
+                      paddingLeft: "10px",
+                    }}
+                    onClick={onClickLogOut}
+                  >
+                    LogOut{" "}
+                    <i className="fa-solid fa-right-from-bracket fa-lg"></i>
+                  </a>
+                </li>
               </li>
             ) : (
               <li className="nav-item">

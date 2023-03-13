@@ -4,6 +4,9 @@ import axios from "axios";
 import CompanyList from "../components/List/CompanyList/CompanyList";
 import styled from "styled-components";
 import { useMemo } from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
 const Portfolio = () => {
   const [search, setSearch] = useState("");
 
@@ -50,11 +53,16 @@ const Portfolio = () => {
       <div>
         <PortfolioContainer>
           <PortfolioForm>
+            <h1>The Reporter</h1>
             <SearchContainer>
-              <input type="text" value={search} onChange={onChange} />
-              <button>
-                <i className="fa-solid fa-magnifying-glass"></i>
-              </button>
+              <InputGroup className="mb-3">
+                <Form.Control
+                  placeholder="찾으려는 기업 이름을 적으세요"
+                  value={search}
+                  onChange={onChange}
+                />
+                <Button variant="outline-secondary">검색</Button>
+              </InputGroup>
             </SearchContainer>
             <TagContainer></TagContainer>
             <CompanyList companies={filterTitle} portfolioPage={true} />
@@ -68,7 +76,6 @@ const Portfolio = () => {
 export default Portfolio;
 
 const PortfolioContainer = styled.div`
-  border: solid 1px;
   padding: 40px;
   display: flex;
   justify-content: center;
@@ -81,7 +88,6 @@ const SearchContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-bottom: 40px;
-  border: solid 1px;
 `;
 
 const PortfolioForm = styled.div`
@@ -90,13 +96,12 @@ const PortfolioForm = styled.div`
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-  border: solid 1px;
 `;
 
 const TagContainer = styled.div`
   display: flex;
   justify-content: center;
   height: 40px;
-  border: solid 1px;
+
   margin-bottom: 40px;
 `;

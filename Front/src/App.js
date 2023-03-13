@@ -10,7 +10,7 @@ import Regist from "./pages/Regist";
 import Test from "./pages/Test";
 import Investor from "./pages/Investor";
 import Portfolio from "./pages/Portfolio";
-import Profile from "./pages/Profile";
+// import Profile from "./pages/Profile";
 import "./App.css";
 const App = () => {
   // const [color, setColor] = useState();
@@ -36,7 +36,7 @@ const App = () => {
           <Route path="/regist" element={<Regist />} />
           <Route path="/test" element={<Test />} />
           <Route path="/investor/:nickname" element={<Investor />} />
-          <Route path="/profile/:nickname" element={<Profile />} />
+          {/* <Route path="/profile/:nickname" element={<Profile />} /> */}
           <Route path="/portfolio/:nickname" element={<Portfolio />} />
         </Route>
       </Routes>

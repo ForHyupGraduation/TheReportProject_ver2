@@ -1,7 +1,10 @@
 import React from "react";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
+import { Form } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
+import InputGroup from "react-bootstrap/InputGroup";
+
 import { useState } from "react";
 import { useEffect } from "react";
 
@@ -38,6 +41,7 @@ const SubsribeButton = ({ companyName, isSubscribed, portfolioPage }) => {
   }, [interestPoint]);
 
   const subscribe = async (e) => {
+    console.log(interestPoint, companyName);
     if (!isSubscribed) {
       let data = {
         memberId: JSON.parse(sessionStorage.getItem("data")).id,
@@ -127,12 +131,18 @@ const SubsribeButton = ({ companyName, isSubscribed, portfolioPage }) => {
         </Button>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>구독을 통해 알람을 받아보세요.</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            완료하기 버튼을 누르면 구독이 완료됩니다!
-            <input onChange={handleChange} />
-            <img src="../img/Brazuca - Pride.png" alt="모나리자" />
+            관심도를 설정 하여 알림을 받을 수 있습니다.
+            <InputGroup>
+              <InputGroup.Text>회사의 관심도 설정</InputGroup.Text>
+              <Form.Control
+                aria-label="Dollar amount (with dot and two decimal places)"
+                onClick={handleChange}
+              />
+              <InputGroup.Text>%</InputGroup.Text>
+            </InputGroup>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
@@ -162,11 +172,24 @@ const SubsribeButton = ({ companyName, isSubscribed, portfolioPage }) => {
             <Modal.Title>설정 값을 변경 하시겠습니까?</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <input onChange={handleChange} />
+            관심도 값을 설정 후 메일을 통해 알람을 받을 수 있습니다.
+            <InputGroup>
+              <InputGroup.Text>회사의 관심도 설정</InputGroup.Text>
+              <Form.Control aria-label="Dollar amount (with dot and two decimal places)" />
+              <InputGroup.Text>%</InputGroup.Text>
+            </InputGroup>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Close
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => {
+                subscribe();
+              }}
+            >
+              설정 값 변경
             </Button>
             <Button
               variant="primary"

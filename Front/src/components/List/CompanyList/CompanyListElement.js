@@ -19,7 +19,6 @@ const CompanyListElement = ({
   isSubscribed,
   companyCategoryName,
 }) => {
-<<<<<<< HEAD
   const [like, setLike] = useState(false);
   const [isLoading, setIsLoading] = useState();
   const [subscribeLoading, setSubscribeLoading] = useState();
@@ -52,9 +51,11 @@ const CompanyListElement = ({
     };
     console.log(data);
     await axios
-      .post("http://localhost:8080/add/portpolio", data,{headers: {
-        'Content-Type': 'multipart/form-data'
-      }})
+      .post("http://localhost:8080/add/portpolio", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
       .then((res) => {
         console.log(res);
       })
@@ -77,8 +78,6 @@ const CompanyListElement = ({
     //   .then((res) => {});
   };
 
-=======
->>>>>>> 03315f434f04abaedfa2760665679b3474b053a2
   if (Upjongpage) {
     return (
       <tr>
