@@ -14,7 +14,7 @@ const SubsribeButton = ({ companyName, isSubscribed, portfolioPage }) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [scrollPosition, setScrollPosition] = useState(0);
-  const [interestPoint, setInterestPoint] = useState(-1);
+  const [interestPoint, setInterestPoint] = useState();
 
   const handleChange = (e) => {
     setInterestPoint(e.target.value);
@@ -46,6 +46,7 @@ const SubsribeButton = ({ companyName, isSubscribed, portfolioPage }) => {
       let data = {
         memberId: JSON.parse(sessionStorage.getItem("data")).id,
         companyName: companyName,
+        interestPoint: interestPoint,
       };
       await axios
         .post("http://localhost:8080/add/portfolio", JSON.stringify(data), {
@@ -61,7 +62,7 @@ const SubsribeButton = ({ companyName, isSubscribed, portfolioPage }) => {
           console.log(error);
         });
       setSubscribeLoading(true);
-      window.location.reload();
+      // window.location.reload();
     } else {
       unSubscribe();
     }
