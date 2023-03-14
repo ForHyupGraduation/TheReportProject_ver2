@@ -57,7 +57,7 @@ public class CompanyController {
     }
 
     @GetMapping("/operate")
-    public String operate() throws InterruptedException {
+    public String operate() {
         sendRequest.sendRequest();
         return "ok";
     }
