@@ -15,13 +15,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.*;
 
 @Slf4j
 public class BuzzInfoCrawler{
     private WebDriver webDriver;
-    private ChromeDriver chromeDriver = new ChromeDriver();
+    private ChromeDriver chromeDriver = new ChromeDriver(new ChromeOptions().addArguments("--remote-allow-origins=*"));
     private CsvFileReader reader = new CsvFileReader();
 
     public FinancialDto findBuzzInfo2(String buzz) {
